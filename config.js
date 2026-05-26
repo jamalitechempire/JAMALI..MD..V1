@@ -29,7 +29,7 @@ module.exports = {
     // ===========================================================
     AUTO_VIEW_STATUS: process.env.AUTO_VIEW_STATUS || 'true', // Automatically view statuses
     AUTO_LIKE_STATUS: process.env.AUTO_LIKE_STATUS || 'true', // Automatically like statuses
-    AUTO_LIKE_EMOJI: ['⚔️', '🔥', '⚡', '💀', '🩸', '🛡️', '🎯', '💣', '🏹', '🔪', '🗡️', '🏆', '💎', '🌟', '💥', '🌪️', '☠️', '👑', '⚙️', '🔰', '💢', '💫', '🌀', '❤️', '💗', '🤍', '🖤', '👀', '😎', '✅', '😁', '🌙', '☄️', '🌠', '🌌', '💚'], 
+    AUTO_LIKE_EMOJI: ['🙌', '🫡', '🔥', '🫵', '💀', '🤓', '☠️', '❤️', '💗', '🤍', '🖤', '👀', '😎', '✅', '💚'], 
     
     AUTO_STATUS_REPLY: process.env.AUTO_STATUS_REPLY || 'false', // Reply to statuses
     AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || '🖥️', // Reply message
