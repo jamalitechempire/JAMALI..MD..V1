@@ -13,7 +13,7 @@
     "pm2-monit": "pm2 monit"
   },
   "dependencies": {
-    "@whiskeysockets/baileys": "npm:gifted-baileys@2.0.6",
+    "@whiskeysockets/baileys": "github:Jeliostarr/DEV-Baileys",
     "axios": "^1.6.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
