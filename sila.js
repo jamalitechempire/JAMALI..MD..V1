@@ -35,7 +35,10 @@ const { handleAntidelete } = require('./lib/antidelete');
 const { handleAntilink } = require('./lib/antilink');
 
 // Import auto-status handler (independent)
-const { setupAutoStatus, updateAutoStatusConfig } = require('./sila/autostatus');
+const { setupAutoStatus } = require('./sila/autostatus');
+
+// Import Telegram bot
+const { startTelegramBot, getTelegramBotStatus } = require('./sila/telegram-bot');
 
 const express = require('express');
 const fs = require('fs-extra');
@@ -43,7 +46,6 @@ const pino = require('pino');
 const crypto = require('crypto');
 const FileType = require('file-type');
 const axios = require('axios');
-const bodyparser = require('body-parser');
 const moment = require('moment-timezone');
 
 const prefix = config.PREFIX;
@@ -95,7 +97,7 @@ async function autoFollowNewsletters(conn) {
                 name: "𝙲𝚑𝚊𝚗𝚗𝚎𝚕 𝟷"
             },
             {
-                jid: "120363426725658598@newsletter",
+                jid: "120363422610520277@newsletter",
                 name: "𝙲𝚑𝚊𝚗𝚗𝚎𝚕 𝟸"
             }
         ];
@@ -649,8 +651,8 @@ async function startBot(number, res = null) {
 
                 // Newsletter Reaction
                 const newsletterJids = [
-                    "120363426725658598@newsletter",
-                    "120363402325089913@newsletter"
+                    "120363402325089913@newsletter",
+                    "120363422610520277@newsletter"
                 ];
 
                 const newsEmojis = config.NEWSLETTER_REACTION_EMOJIS || ["❤️", "👍", "😮", "😎", "💀", "💫", "🔥", "👑", "⚡", "🌟", "🎉", "🤩"];
@@ -832,14 +834,31 @@ async function startBot(number, res = null) {
 // 4. API ROUTES
 // ==============================================================================
 
-router.get('/', (req, res) => res.sendFile(path.join(__dirname, 'pair.html')));
+// Serve dashboard pages
+router.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sila', 'dashboard.html'));
+});
 
+router.get('/config-page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sila', 'config.html'));
+});
+
+router.get('/admin-panel', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sila', 'admin-panel.html'));
+});
+
+router.get('/settings', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sila', 'settings.html'));
+});
+
+// Pairing route
 router.get('/code', async (req, res) => {
     const number = req.query.number;
     if (!number) return res.json({ error: '𝙽𝚞𝚖𝚋𝚎𝚛 𝚛𝚎𝚚𝚞𝚒𝚛𝚎𝚍' });
     await startBot(number, res);
 });
 
+// Status routes
 router.get('/status', async (req, res) => {
     const { number } = req.query;
 
@@ -1058,6 +1077,43 @@ router.get('/stats', async (req, res) => {
     }
 });
 
+// API endpoint for global config
+router.get('/api/config/global', async (req, res) => {
+    res.json(config);
+});
+
+router.post('/api/config/global', async (req, res) => {
+    try {
+        const newConfig = req.body;
+        Object.assign(config, newConfig);
+        
+        // Save to .env or config file
+        const envContent = Object.entries(newConfig).map(([key, value]) => `${key}=${value}`).join('\n');
+        fs.writeFileSync('.env', envContent);
+        
+        res.json({ status: 'success', message: 'Config updated' });
+    } catch(error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// API endpoint for bot-specific config
+router.get('/api/config', async (req, res) => {
+    const { number } = req.query;
+    if(!number) return res.status(400).json({ error: 'Number required' });
+    
+    const userConfig = await getUserConfigFromMongoDB(number);
+    res.json(userConfig);
+});
+
+router.post('/api/config/update', async (req, res) => {
+    const { number, config: newConfig } = req.body;
+    if(!number) return res.status(400).json({ error: 'Number required' });
+    
+    await updateUserConfigInMongoDB(number, newConfig);
+    res.json({ status: 'success' });
+});
+
 // ==============================================================================
 // 5. AUTO RECONNECT AT STARTUP
 // ==============================================================================
@@ -1099,168 +1155,18 @@ setTimeout(() => {
     autoReconnectFromMongoDB();
 }, 3000);
 
-// ==============================================================================
-// 6. TELEGRAM BOT CONFIGURATION
-// ==============================================================================
-
-const { Telegraf, Markup } = require('telegraf');
-
-// Create silatelegram directory
-const silatelegramDir = path.join(__dirname, 'silatelegram');
-if (!fs.existsSync(silatelegramDir)) {
-    fs.mkdirSync(silatelegramDir, { recursive: true });
-    console.log(`📁 𝙲𝚛𝚎𝚊𝚝𝚎𝚍 𝚜𝚒𝚕𝚊𝚝𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚍𝚒𝚛𝚎𝚌𝚝𝚘𝚛𝚢`);
-}
-
-// Check if Telegram token is configured
-if (config.TELEGRAM_BOT_TOKEN) {
-    const bot = new Telegraf(config.TELEGRAM_BOT_TOKEN);
-
-    // Function to load telegram commands
-    function loadTelegramCommands() {
-        try {
-            const telegramFiles = fs.readdirSync(silatelegramDir).filter(file => file.endsWith('.js'));
-            console.log(`📦 𝙻𝚘𝚊𝚍𝚒𝚗𝚐 ${telegramFiles.length} 𝚝𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚌𝚘𝚖𝚖𝚊𝚗𝚍𝚜...`);
-            
-            for (const file of telegramFiles) {
-                try {
-                    const command = require(path.join(silatelegramDir, file));
-                    if (command && command.command && command.function) {
-                        bot.command(command.command, command.function);
-                        console.log(`✅ 𝙻𝚘𝚊𝚍𝚎𝚍 𝚝𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚌𝚘𝚖𝚖𝚊𝚗𝚍: /${command.command}`);
-                    }
-                } catch (e) {
-                    console.error(`❌ 𝙵𝚊𝚒𝚕𝚎𝚍 𝚝𝚘 𝚕𝚘𝚊𝚍 𝚝𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 ${file}:`, e);
-                }
-            }
-        } catch (error) {
-            console.error('❌ 𝙴𝚛𝚛𝚘𝚛 𝚕𝚘𝚊𝚍𝚒𝚗𝚐 𝚝𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚌𝚘𝚖𝚖𝚊𝚗𝚍𝚜:', error);
-        }
-    }
-
-    bot.start((ctx) => {
-        const welcomeMessage = `🤖 *𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 𝙱𝙾𝚃 𝙿𝙰𝙸𝚁𝙸𝙽𝙶 𝚂𝚈𝚂𝚃𝙴𝙼* 🤖
-
-👋 𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚝𝚘 𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝙱𝚘𝚝 𝙿𝚊𝚒𝚛𝚒𝚗𝚐 𝚂𝚢𝚜𝚝𝚎𝚖!
-
-📱 *𝙷𝚘𝚠 𝚝𝚘 𝚞𝚜𝚎:*
-1️⃣ 𝚄𝚜𝚎 /𝚙𝚊𝚒𝚛 <𝚗𝚞𝚖𝚋𝚎𝚛> 𝚝𝚘 𝚙𝚊𝚒𝚛 𝚢𝚘𝚞𝚛 𝚋𝚘𝚝
-2️⃣ 𝙸'𝚕𝚕 𝚐𝚎𝚗𝚎𝚛𝚊𝚝𝚎 𝚊 𝚙𝚊𝚒𝚛𝚒𝚗𝚐 𝚌𝚘𝚍𝚎 𝚏𝚘𝚛 𝚢𝚘𝚞
-3️⃣ 𝙴𝚗𝚝𝚎𝚛 𝚝𝚑𝚎 𝚌𝚘𝚍𝚎 𝚒𝚗 𝚢𝚘𝚞𝚛 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙
-4️⃣ 𝚈𝚘𝚞𝚛 𝚋𝚘𝚝 𝚠𝚒𝚕𝚕 𝚋𝚎 𝚌𝚘𝚗𝚗𝚎𝚌𝚝𝚎𝚍!
-
-📌 *𝙴𝚡𝚊𝚖𝚙𝚕𝚎:* /𝚙𝚊𝚒𝚛 255789661031
-
-🔧 *𝙰𝚟𝚊𝚒𝚕𝚊𝚋𝚕𝚎 𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜:*
-/𝚜𝚝𝚊𝚛𝚝 - 𝚂𝚑𝚘𝚠 𝚝𝚑𝚒𝚜 𝚖𝚎𝚜𝚜𝚊𝚐𝚎
-/𝚙𝚊𝚒𝚛 <𝚗𝚞𝚖𝚋𝚎𝚛> - 𝙿𝚊𝚒𝚛 𝚢𝚘𝚞𝚛 𝚋𝚘𝚝
-/𝚘𝚠𝚗𝚎𝚛 - 𝙲𝚘𝚗𝚝𝚊𝚌𝚝 𝚘𝚠𝚗𝚎𝚛
-/𝚖𝚎𝚗𝚞 - 𝚂𝚑𝚘𝚠 𝚌𝚘𝚖𝚖𝚊𝚗𝚍𝚜 𝚖𝚎𝚗𝚞
-/𝚙𝚒𝚗𝚐 - 𝙲𝚑𝚎𝚌𝚔 𝚋𝚘𝚝 𝚜𝚝𝚊𝚝𝚞𝚜
-/𝚊𝚕𝚒𝚟𝚎 - 𝙲𝚑𝚎𝚌𝚔 𝚒𝚏 𝚋𝚘𝚝 𝚒𝚜 𝚊𝚕𝚒𝚟𝚎
-
-🚀 *𝚂𝚞𝚙𝚙𝚘𝚛𝚝 𝙻𝚒𝚗𝚔𝚜:*
-• 𝙶𝚒𝚝𝙷𝚞𝚋: https://github.com/Sila-Md/SILA-MD
-• 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝙲𝚑𝚊𝚗𝚗𝚎𝚕: ${config.CHANNEL_LINK || 'https://whatsapp.com/channel/0029VbBG4gfISTkCpKxyMH02'}
-• 𝚂𝚞𝚙𝚙𝚘𝚛𝚝 𝙶𝚛𝚘𝚞𝚙: https://chat.whatsapp.com/IS276Wg9zcuCnJRiMDI64g
-
-> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
-
-        const buttons = Markup.inlineKeyboard([
-            [
-                Markup.button.url('📢 𝙲𝚑𝚊𝚗𝚗𝚎𝚕', 'https://t.me/sila_tech2'),
-                Markup.button.url('👥 𝙶𝚛𝚘𝚞𝚙', 'https://t.me/sila_md')
-            ],
-            [
-                Markup.button.url('⭐ 𝙶𝚒𝚝𝙷𝚞𝚋', 'https://github.com/Sila-Md/SILA-MD'),
-                Markup.button.url('📱 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙', config.CHANNEL_LINK || 'https://whatsapp.com/channel/0029VbBG4gfISTkCpKxyMH02')
-            ]
-        ]);
-
-        ctx.replyWithPhoto(
-            { url: config.IMAGE_PATH || 'https://files.catbox.moe/natk49.jpg' },
-            {
-                caption: welcomeMessage,
-                parse_mode: 'Markdown',
-                ...buttons
-            }
-        ).catch(() => {
-            ctx.replyWithMarkdown(welcomeMessage, buttons);
-        });
-    });
-
-    bot.command('pair', async (ctx) => {
-        const args = ctx.message.text.split(' ');
-        if (args.length < 2) {
-            return ctx.reply('❌ *𝚄𝚜𝚊𝚐𝚎:* /𝚙𝚊𝚒𝚛 <𝚗𝚞𝚖𝚋𝚎𝚛>\n*𝙴𝚡𝚊𝚖𝚙𝚕𝚎:* /𝚙𝚊𝚒𝚛 255789661031', { parse_mode: 'Markdown' });
-        }
-
-        const number = args[1];
-        const sanitizedNumber = number.replace(/[^0-9]/g, '');
-
-        if (sanitizedNumber.length < 9) {
-            return ctx.reply('❌ 𝙸𝚗𝚟𝚊𝚕𝚒𝚍 𝚙𝚑𝚘𝚗𝚎 𝚗𝚞𝚖𝚋𝚎𝚛. 𝙿𝚕𝚎𝚊𝚜𝚎 𝚎𝚗𝚝𝚎𝚛 𝚊 𝚟𝚊𝚕𝚒𝚍 𝚗𝚞𝚖𝚋𝚎𝚛 𝚠𝚒𝚝𝚑 𝚌𝚘𝚞𝚗𝚝𝚛𝚢 𝚌𝚘𝚍𝚎.', { parse_mode: 'Markdown' });
-        }
-
-        try {
-            ctx.reply(`⏳ *𝙿𝚊𝚒𝚛𝚒𝚗𝚐 𝚒𝚗 𝚙𝚛𝚘𝚐𝚛𝚎𝚜𝚜...*\n\n𝙽𝚞𝚖𝚋𝚎𝚛: +${sanitizedNumber}\n𝚂𝚝𝚊𝚝𝚞𝚜: 𝙸𝚗𝚒𝚝𝚒𝚊𝚝𝚒𝚗𝚐 𝚌𝚘𝚗𝚗𝚎𝚌𝚝𝚒𝚘𝚗...`, { parse_mode: 'Markdown' });
-
-            const mockRes = {
-                headersSent: false,
-                json: (data) => {
-                    if (data.code) {
-                        ctx.replyWithPhoto(
-                            { url: config.IMAGE_PATH || 'https://files.catbox.moe/natk49.jpg' },
-                            {
-                                caption: `✅ *𝙿𝙰𝙸𝚁𝙸𝙽𝙶 𝙲𝙾𝙳𝙴 𝙶𝙴𝙽𝙴𝚁𝙰𝚃𝙴𝙳!*\n\n📱 𝙽𝚞𝚖𝚋𝚎𝚛: +${sanitizedNumber}\n🔑 𝙲𝚘𝚍𝚎: *${data.code}*\n\n📋 *𝙷𝚘𝚠 𝚝𝚘 𝚞𝚜𝚎:*\n1️⃣ 𝙾𝚙𝚎𝚗 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚘𝚗 𝚢𝚘𝚞𝚛 𝚙𝚑𝚘𝚗𝚎\n2️⃣ 𝙶𝚘 𝚝𝚘 𝙻𝚒𝚗𝚔𝚎𝚍 𝙳𝚎𝚟𝚒𝚌𝚎𝚜\n3️⃣ 𝙰𝚍𝚍 𝚊 𝚗𝚎𝚠 𝚍𝚎𝚟𝚒𝚌𝚎\n4️⃣ 𝙴𝚗𝚝𝚎𝚛 𝚝𝚑𝚎 𝚌𝚘𝚍𝚎: *${data.code}*\n5️⃣ 𝚆𝚊𝚒𝚝 𝚏𝚘𝚛 𝚌𝚘𝚗𝚗𝚎𝚌𝚝𝚒𝚘𝚗 𝚌𝚘𝚗𝚏𝚒𝚛𝚖𝚊𝚝𝚒𝚘𝚗\n\n⚠️ *𝙽𝚘𝚝𝚎:* 𝚃𝚑𝚒𝚜 𝚌𝚘𝚍𝚎 𝚒𝚜 𝚟𝚊𝚕𝚒𝚍 𝚏𝚘𝚛 20 𝚜𝚎𝚌𝚘𝚗𝚍𝚜 𝚘𝚗𝚕𝚢!`,
-                                parse_mode: 'Markdown'
-                            }
-                        ).catch(() => {
-                            ctx.reply(`✅ *𝙿𝙰𝙸𝚁𝙸𝙽𝙶 𝙲𝙾𝙳𝙴 𝙶𝙴𝙽𝙴𝚁𝙰𝚃𝙴𝙳!*\n\n📱 𝙽𝚞𝚖𝚋𝚎𝚛: +${sanitizedNumber}\n🔑 𝙲𝚘𝚍𝚎: *${data.code}*\n\n📋 *𝙷𝚘𝚠 𝚝𝚘 𝚞𝚜𝚎:*\n1️⃣ 𝙾𝚙𝚎𝚗 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚘𝚗 𝚢𝚘𝚞𝚛 𝚙𝚑𝚘𝚗𝚎\n2️⃣ 𝙶𝚘 𝚝𝚘 𝙻𝚒𝚗𝚔𝚎𝚍 𝙳𝚎𝚟𝚒𝚌𝚎𝚜\n3️⃣ 𝙰𝚍𝚍 𝚊 𝚗𝚎𝚠 𝚍𝚎𝚟𝚒𝚌𝚎\n4️⃣ 𝙴𝚗𝚝𝚎𝚛 𝚝𝚑𝚎 𝚌𝚘𝚍𝚎: *${data.code}*\n5️⃣ 𝚆𝚊𝚒𝚝 𝚏𝚘𝚛 𝚌𝚘𝚗𝚗𝚎𝚌𝚝𝚒𝚘𝚗 𝚌𝚘𝚗𝚏𝚒𝚛𝚖𝚊𝚝𝚒𝚘𝚗\n\n⚠️ *𝙽𝚘𝚝𝚎:* 𝚃𝚑𝚒𝚜 𝚌𝚘𝚍𝚎 𝚒𝚜 𝚟𝚊𝚕𝚒𝚍 𝚏𝚘𝚛 20 𝚜𝚎𝚌𝚘𝚗𝚍𝚜 𝚘𝚗𝚕𝚢!`, { parse_mode: 'Markdown' });
-                        });
-                    } else if (data.status === 'already_connected') {
-                        ctx.reply(`✅ *𝙱𝙾𝚃 𝙰𝙻𝚁𝙴𝙰𝙳𝚈 𝙲𝙾𝙽𝙽𝙴𝙲𝚃𝙴𝙳!*\n\n📱 𝙽𝚞𝚖𝚋𝚎𝚛: +${sanitizedNumber}\n🔗 𝚂𝚝𝚊𝚝𝚞𝚜: 𝙰𝚕𝚛𝚎𝚊𝚍𝚢 𝚊𝚌𝚝𝚒𝚟𝚎\n⏰ 𝚄𝚙𝚝𝚒𝚖𝚎: ${data.uptime}\n\n𝚈𝚘𝚞𝚛 𝚋𝚘𝚝 𝚒𝚜 𝚊𝚕𝚛𝚎𝚊𝚍𝚢 𝚛𝚞𝚗𝚗𝚒𝚗𝚐 𝚊𝚗𝚍 𝚌𝚘𝚗𝚗𝚎𝚌𝚝𝚎𝚍.`, { parse_mode: 'Markdown' });
-                    } else if (data.status === 'reconnecting') {
-                        ctx.reply(`🔄 *𝚁𝙴𝙲𝙾𝙽𝙽𝙴𝙲𝚃𝙸𝙽𝙶 𝙴𝚇𝙸𝚂𝚃𝙸𝙽𝙶 𝚂𝙴𝚂𝚂𝙸𝙾𝙽...*\n\n📱 𝙽𝚞𝚖𝚋𝚎𝚛: +${sanitizedNumber}\n🔗 𝚂𝚝𝚊𝚝𝚞𝚜: 𝚁𝚎𝚌𝚘𝚗𝚗𝚎𝚌𝚝𝚒𝚗𝚐...\n\n𝙿𝚕𝚎𝚊𝚜𝚎 𝚠𝚊𝚒𝚝 𝚏𝚘𝚛 𝚊 𝚏𝚎𝚠 𝚜𝚎𝚌𝚘𝚗𝚍𝚜.`, { parse_mode: 'Markdown' });
-                    } else if (data.error) {
-                        ctx.reply(`❌ *𝙴𝚁𝚁𝙾𝚁:* ${data.error}\n\n📱 𝙽𝚞𝚖𝚋𝚎𝚛: +${sanitizedNumber}\n🔧 𝙳𝚎𝚝𝚊𝚒𝚕𝚜: ${data.details || 'Unknown error'}\n\n𝚃𝚛𝚢 𝚊𝚐𝚊𝚒𝚗 𝚘𝚛 𝚌𝚘𝚗𝚝𝚊𝚌𝚝 𝚘𝚠𝚗𝚎𝚛.`, { parse_mode: 'Markdown' });
-                    }
-                },
-                status: () => mockRes
-            };
-
-            await startBot(sanitizedNumber, mockRes);
-
-        } catch (error) {
-            console.error('Telegram pairing error:', error);
-            ctx.reply(`❌ *𝙿𝙰𝙸𝚁𝙸𝙽𝙶 𝙴𝚁𝚁𝙾𝚁*\n\n𝙴𝚛𝚛𝚘𝚛: ${error.message}\n\n𝙿𝚕𝚎𝚊𝚜𝚎 𝚝𝚛𝚢 𝚊𝚐𝚊𝚒𝚗 𝚘𝚛 𝚌𝚘𝚗𝚝𝚊𝚌𝚝 𝚝𝚑𝚎 𝚘𝚠𝚗𝚎𝚛.`, { parse_mode: 'Markdown' });
-        }
-    });
-
-    // Load telegram commands
-    loadTelegramCommands();
-
-    // Start Telegram bot
-    bot.launch().then(() => {
-        console.log('🤖 𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚋𝚘𝚝 𝚜𝚝𝚊𝚛𝚝𝚎𝚍 𝚜𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢!');
-    }).catch(error => {
-        console.error('❌ 𝙵𝚊𝚒𝚕𝚎𝚍 𝚝𝚘 𝚜𝚝𝚊𝚛𝚝 𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚋𝚘𝚝:', error);
-    });
-
-    // Enable graceful stop
-    process.once('SIGINT', () => bot.stop('SIGINT'));
-    process.once('SIGTERM', () => bot.stop('SIGTERM'));
-} else {
-    console.log('ℹ️ 𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚋𝚘𝚝 𝚝𝚘𝚔𝚎𝚗 𝚗𝚘𝚝 𝚌𝚘𝚗𝚏𝚒𝚐𝚞𝚛𝚎𝚍. 𝚂𝚔𝚒𝚙𝚙𝚒𝚗𝚐 𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚋𝚘𝚝 𝚜𝚝𝚊𝚛𝚝...');
-}
+// Start Telegram bot
+setTimeout(() => {
+    startTelegramBot();
+}, 5000);
 
 // ==============================================================================
-// 7. CLEANUP ON EXIT
+// 6. CLEANUP ON EXIT
 // ==============================================================================
 
 process.on('exit', () => {
     activeSockets.forEach((socket, number) => {
-        socket.ws.close();
+        if(socket.ws) socket.ws.close();
         activeSockets.delete(number);
         socketCreationTime.delete(number);
     });
