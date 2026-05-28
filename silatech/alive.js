@@ -15,7 +15,7 @@ async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, send
         const endTime = Date.now();
         const ping = endTime - startTime;
         
-        const pongMessage = `*😎 SILA PONG : ${ping} ms*`;
+        const pongMessage = `*⚡ JAMALI MD PONG : ${ping} ms*`;
         
         await conn.sendMessage(from, { text: pongMessage }, { quoted: message });
     } catch (e) {
@@ -34,15 +34,15 @@ cmd({
 async(conn, mek, m, { from, reply, myquoted }) => {
     try {
         await conn.sendMessage(from, { 
-            image: { url: 'https://files.catbox.moe/hjyysd.jpg' },
-            caption: `╭━━【 𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 𝙱𝙾𝚃 】━━━━━━━━╮
+            image: { url: 'https://files.catbox.moe/0e3rok.jpg' },
+            caption: `╭━━【 JAMALI MD BOT 】━━━━━━━━╮
 │ status: *active & running*
 │ prefix: *${config.PREFIX}*
-│ version: *2.0.0*
-│ developed: *sila tech*
+│ version: *3.0.0*
+│ developed: *JAMALI TECH TZ*
 ╰━━━━━━━━━━━━━━━━━━━━╯
 
-${config.BOT_FOOTER || '> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡'}`
+${config.BOT_FOOTER || '> 🔥 Powered by JAMALI TECH TZ'}`
         }, { quoted: myquoted });
     } catch (e) {
         reply("error: " + e.message);
