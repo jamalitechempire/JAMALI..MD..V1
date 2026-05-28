@@ -61,7 +61,7 @@ async (conn, mek, m, { from, isGroup, isAdmins, isCreator, reply, myquoted }) =>
         }
         
         const onlineArray = Array.from(onlineMembers);
-        let message = `╭━━【 🟢 𝙾𝙽𝙻𝙸𝙽𝙴 𝙼𝙴𝙼𝙱𝙴𝚁𝚂 】━━━━╮\n`;
+        let message = `╭━━【 🟢 ONLINE MEMBERS 】━━━━╮\n`;
         message += `│ 👥 total: *${groupData.participants.length}*\n`;
         message += `│ 🟢 online: *${onlineArray.length}*\n`;
         message += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
@@ -73,7 +73,7 @@ async (conn, mek, m, { from, isGroup, isAdmins, isCreator, reply, myquoted }) =>
             message += `${batch.map((id, idx) => `${i + idx + 1}. @${id.split('@')[0]}`).join('\n')}\n`;
         }
         
-        message += `\n> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+        message += `\n> 🔥 Powered by JAMALI TECH TZ`;
 
         await conn.sendMessage(from, { 
             text: message,
