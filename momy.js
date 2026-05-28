@@ -1,3 +1,4 @@
+// JAMALI MD - Command Handler System
 var commands = [];
 
 function cmd(info, func) {
