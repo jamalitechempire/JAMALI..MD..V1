@@ -23,7 +23,7 @@ cmd({
     const app = data.datalist.list[0];
     const appSize = (app.size / 1048576).toFixed(2);
 
-    let caption = `╭━━【 📱 𝙰𝙿𝙺 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳 】━━━━╮
+    let caption = `╭━━【 📱 APK DOWNLOAD 】━━━━╮
 │ 🏷️ name: *${app.name}*
 │ 📦 size: *${appSize} mb*
 │ 📦 package: *${app.package}*
@@ -33,7 +33,7 @@ cmd({
 
 *downloading...*
 
-> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+> 🔥 Powered by JAMALI TECH TZ`;
 
     await conn.sendMessage(from, { image: { url: app.icon }, caption }, { quoted: myquoted });
 
