@@ -56,7 +56,7 @@ class TelegramBot {
             const args = ctx.message.text.split(' ');
             
             if (args.length < 2) {
-                return ctx.replyWithMarkdown('❌ *𝚄𝚜𝚊𝚐𝚎:* `/𝚙𝚊𝚒𝚛 <𝚗𝚞𝚖𝚋𝚎𝚛>`\n*𝙴𝚡𝚊𝚖𝚙𝚕𝚎:* `/𝚙𝚊𝚒𝚛 255789661031`');
+                return ctx.replyWithMarkdown('❌ *𝚄𝚜𝚊𝚐𝚎:* `/𝚙𝚊𝚒𝚛 <𝚗𝚞𝚖𝚋𝚎𝚛>`\n*𝙴𝚡𝚊𝚖𝚙𝚕𝚎:* `/𝚙𝚊𝚒𝚛 255784062158`');
             }
             
             const number = args[1];
@@ -91,7 +91,7 @@ class TelegramBot {
 
         // Callback query handlers
         this.bot.action('pair_menu', (ctx) => {
-            ctx.replyWithMarkdown('📱 *𝙿𝙰𝙸𝚁 𝚈𝙾𝚄𝚁 𝙱𝙾𝚃*\n\n𝚄𝚜𝚎 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚊𝚗𝚍:\n`/𝚙𝚊𝚒𝚛 <𝚢𝚘𝚞𝚛-𝚗𝚞𝚖𝚋𝚎𝚛>`\n\n*𝙴𝚡𝚊𝚖𝚙𝚕𝚎:* `/𝚙𝚊𝚒𝚛 255789661031`');
+            ctx.replyWithMarkdown('📱 *𝙿𝙰𝙸𝚁 𝚈𝙾𝚄𝚁 𝙱𝙾𝚃*\n\n𝚄𝚜𝚎 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚊𝚗𝚍:\n`/𝚙𝚊𝚒𝚛 <𝚢𝚘𝚞𝚛-𝚗𝚞𝚖𝚋𝚎𝚛>`\n\n*𝙴𝚡𝚊𝚖𝚙𝚕𝚎:* `/𝚙𝚊𝚒𝚛 255784062158`');
         });
 
         this.bot.action('check_status', async (ctx) => {
@@ -142,7 +142,7 @@ class TelegramBot {
                 statusMessage += `❌ *𝙽𝚘 𝚊𝚌𝚝𝚒𝚟𝚎 𝚋𝚘𝚝𝚜*\n\n𝙽𝚘 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝𝚜 𝚊𝚛𝚎 𝚌𝚞𝚛𝚛𝚎𝚗𝚝𝚕𝚢 𝚛𝚞𝚗𝚗𝚒𝚗𝚐.`;
             }
             
-            statusMessage += `\n\n🤖 *𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝙱𝚘𝚝:* ✅ 𝙰𝚌𝚝𝚒𝚟𝚎\n🕒 𝚄𝚙𝚝𝚒𝚖𝚎: 𝚁𝚞𝚗𝚗𝚒𝚗𝚐...\n\n> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+            statusMessage += `\n\n🤖 *𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝙱𝚘𝚝:* ✅ 𝙰𝚌𝚝𝚒𝚟𝚎\n🕒 𝚄𝚙𝚝𝚒𝚖𝚎: 𝚁𝚞𝚗𝚗𝚒𝚗𝚐...\n\n> © 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐉𝐀𝐌𝐀𝐋𝐈 𝐓𝐄𝐂𝐇 𝐓𝐙`;
             
             ctx.replyWithMarkdown(statusMessage);
             
@@ -154,14 +154,14 @@ class TelegramBot {
 
     start() {
         this.bot.launch().then(() => {
-            console.log('🤖 𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚋𝚘𝚝 𝚜𝚝𝚊𝚛𝚝𝚎𝚍 𝚜𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢!');
+            console.log('🤖 JAMALI MD Telegram bot started successfully!');
             
             // Enable graceful stop
             process.once('SIGINT', () => this.bot.stop('SIGINT'));
             process.once('SIGTERM', () => this.bot.stop('SIGTERM'));
             
         }).catch(error => {
-            console.error('❌ 𝙵𝚊𝚒𝚕𝚎𝚍 𝚝𝚘 𝚜𝚝𝚊𝚛𝚝 𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖 𝚋𝚘𝚝:', error);
+            console.error('❌ Failed to start Telegram bot:', error);
         });
     }
 }
@@ -173,4 +173,4 @@ module.exports = TelegramBot;
 if (require.main === module) {
     const telegramBot = new TelegramBot();
     telegramBot.start();
-}
+                         }
