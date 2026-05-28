@@ -1,7 +1,9 @@
+// JAMALI MD - AI Copilot & Advanced AI Commands
+
 const { cmd, commands } = require('../momy');
 const axios = require('axios');
 
-// Define combined fakevCard 
+// Define combined fakevCard (JAMALI MD)
 const fakevCard = {
   key: {
     fromMe: false,
@@ -10,8 +12,8 @@ const fakevCard = {
   },
   message: {
     contactMessage: {
-      displayName: "© 𝐒𝐈𝐋𝐀-𝐌𝐃",
-      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:𝐒𝐈𝐋𝐀 𝐌𝐃 𝐁𝐎𝐓\nORG:𝐒𝐈𝐋𝐀-𝐌𝐃;\nTEL;type=CELL;type=VOICE;waid=255789661031:+255789661031\nEND:VCARD`
+      displayName: "© JAMALI MD",
+      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:JAMALI MD BOT\nORG:JAMALI TECH TZ;\nTEL;type=CELL;type=VOICE;waid=255784062158:+255784062158\nEND:VCARD`
     }
   }
 };
@@ -22,8 +24,8 @@ const getContextInfo = (sender) => {
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363402325089913@newsletter',
-            newsletterName: '© 𝐒𝐈𝐋𝐀 𝐌𝐃',
+            newsletterJid: '120363425061263455@newsletter',
+            newsletterName: 'JAMALI MD',
             serverMessageId: 143,
         },
     };
@@ -48,7 +50,7 @@ async function getCopilotResponse(query) {
 
 cmd({
 	pattern: 'copilot',
-	alias: ['ai2', 'silaai', 'ask', 'query', 'gpt', 'silacop'],
+	alias: ['ai2', 'jamaliai', 'ask', 'query', 'gpt', 'jamalicop'],
 	react: '🤖',
 	desc: 'Ask AI Copilot anything',
 	category: 'main',
@@ -57,26 +59,29 @@ cmd({
 async (conn, mek, m, { from, sender, reply, q }) => {
 	try {
 		if (!q) {
-			return reply(`┏━❑ 𝐒𝙸𝙻𝐀-𝐌𝐃 𝐀𝐈 𝐂𝐎𝐏𝐈𝐋𝐎𝐓 ━━━━━━━━━
-┃ 🤖 𝙰𝚜𝚔 𝚖𝚎 𝚊𝚗𝚢𝚝𝚑𝚒𝚗𝚐
+			return reply(`┏━❑ JAMALI MD AI COPILOT ━━━━━━━━━
+┃ 🤖 Ask me anything
 ┃
-┃ 𝚄𝚜𝚎: .𝚊𝚒 𝚢𝚘𝚞𝚛 𝚚𝚞𝚎𝚜𝚝𝚒𝚘𝚗
+┃ Use: .copilot your question
 ┃
-┃ 𝙰𝚕𝚒𝚊𝚜𝚎𝚜:
-┃ • .𝚊𝚒
-┃ • .𝚊𝚜𝚔
-┃ • .𝚌𝚘𝚙𝚒𝚕𝚘𝚝
-┃ • .𝚜𝚒𝚕𝚊𝚊𝚒
+┃ Aliases:
+┃ • .ai2
+┃ • .jamaliai
+┃ • .ask
+┃ • .gpt
+┃ • .jamalicop
 ┃
-┃ 𝙴𝚡𝚊𝚖𝚙𝚕𝚎𝚜:
-┃ • .𝚊𝚒 𝚠𝚑𝚊𝚝 𝚒𝚜 𝚎𝚌𝚘𝚗𝚘𝚖𝚒𝚌𝚜
-┃ • .𝚊𝚎𝚐 𝚑𝚘𝚠 𝚝𝚘 𝚕𝚎𝚊𝚛𝚗 𝚙𝚛𝚘𝚐𝚛𝚊𝚖𝚖𝚒𝚗𝚐
-┗━━━━━━━━━━━━━━━━━━━━`);
+┃ Examples:
+┃ • .copilot what is economics
+┃ • .jamaliai how to learn programming
+┗━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`);
 		}
 
 		// Show thinking message
 		const thinkMsg = await conn.sendMessage(from, {
-			text: `🤔 𝚃𝚑𝚒𝚗𝚔𝚒𝚗𝚐 𝚊𝚋𝚘𝚞𝚝 𝚢𝚘𝚞𝚛 𝚚𝚞𝚎𝚜𝚝𝚒𝚘𝚗...`
+			text: `🤔 Thinking about your question...`
 		}, { quoted: mek });
 
 		let response;
@@ -85,17 +90,21 @@ async (conn, mek, m, { from, sender, reply, q }) => {
 		} catch (apiErr) {
 			console.error('API Error:', apiErr);
 			await conn.sendMessage(from, { delete: thinkMsg.key });
-			return reply(`┏━❑ 𝐀𝐈 𝐄𝐑𝐑𝐎𝐑 ━━━━━━━━━
-┃ ❌ 𝚈𝚞𝚙𝚛𝚊 𝙰𝙸 𝙰𝙿𝙸 𝚎𝚛𝚛𝚘𝚛
-┃ 𝚃𝚛𝚢 𝚊𝚐𝚊𝚒𝚗 𝚕𝚊𝚝𝚎𝚛
-┗━━━━━━━━━━━━━━━━━━━━`, { quoted: fakevCard });
+			return reply(`┏━❑ AI ERROR ━━━━━━━━━
+┃ ❌ Yupra AI API error
+┃ Try again later
+┗━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`, { quoted: fakevCard });
 		}
 
 		if (!response) {
 			await conn.sendMessage(from, { delete: thinkMsg.key });
-			return reply(`┏━❑ 𝐀𝐈 𝐑𝐄𝐒𝐏𝐎𝐍𝐒𝐄 ━━━━━━━━━
-┃ ❌ 𝙽𝚘 𝚛𝚎𝚜𝚙𝚘𝚗𝚜𝚎 𝚛𝚎𝚌𝚎𝚒𝚟𝚎𝚍
-┗━━━━━━━━━━━━━━━━━━━━`);
+			return reply(`┏━❑ AI RESPONSE ━━━━━━━━━
+┃ ❌ No response received
+┗━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`);
 		}
 
 		// Format response
@@ -104,11 +113,13 @@ async (conn, mek, m, { from, sender, reply, q }) => {
 			formattedResponse = response.substring(0, 4093) + '...';
 		}
 
-		const finalMsg = `┏━❑ 𝐒𝙸𝙻𝐀-𝐌𝐃 𝐂𝐎𝐏𝐈𝐋𝐎𝐓 ━━━━━━━━━
-┃ 🤖 𝙷𝚎𝚛𝚎'𝚜 𝚖𝚢 𝚊𝚗𝚜𝚠𝚎𝚛:
+		const finalMsg = `┏━❑ JAMALI MD COPILOT ━━━━━━━━━
+┃ 🤖 Here's my answer:
 ${formattedResponse.split('\n').map(line => `┃ ${line}`).join('\n')}
 
-┗━━━━━━━━━━━━━━━━━━━━`;
+┗━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`;
 
 		// Delete thinking message and send response
 		await conn.sendMessage(from, { delete: thinkMsg.key });
@@ -119,10 +130,12 @@ ${formattedResponse.split('\n').map(line => `┃ ${line}`).join('\n')}
 
 	} catch (err) {
 		console.error('Copilot error:', err);
-		reply(`┏━❑ 𝐀𝐈 𝐄𝐑𝐑𝐎𝐑 ━━━━━━━━━
-┃ ❌ 𝙴𝚛𝚛𝚘𝚛 𝚙𝚛𝚘𝚌𝚎𝚜𝚜𝚒𝚗𝚐 𝚖𝚘𝚘𝚖𝚎𝚗𝚝
-┃ 𝚃𝚛𝚢 𝚊𝚐𝚊𝚒𝚗
-┗━━━━━━━━━━━━━━━━━━━━`, { quoted: fakevCard });
+		reply(`┏━❑ AI ERROR ━━━━━━━━━
+┃ ❌ Error processing request
+┃ Try again
+┗━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`, { quoted: fakevCard });
 	}
 });
 
@@ -138,17 +151,19 @@ cmd({
 async (conn, mek, m, { from, sender, reply, q }) => {
 	try {
 		if (!q) {
-			return reply(`┏━❑ 𝐀𝐈 𝐄𝐗𝐏𝐋𝐀𝐈𝐍 ━━━━━━━━━
-┃ 🧠 𝙰𝚖𝚋𝚐 𝚘𝚖𝚞 𝚚𝚞𝚖 𝚞𝚞𝚊𝚕𝚞𝚛𝚞
+			return reply(`┏━❑ AI EXPLAIN ━━━━━━━━━
+┃ 🧠 Get detailed explanation
 ┃
-┃ 𝚄𝚜𝚎: .𝚊𝚒𝚡 𝚖𝚎𝚜𝚜𝚊𝚐𝚎
-┗━━━━━━━━━━━━━━━━━━━━`);
+┃ Use: .aix your question
+┗━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`);
 		}
 
 		const prompt = `Explain this in detail: ${q}`;
 
 		const loadMsg = await conn.sendMessage(from, {
-			text: `⏳ 𝙻𝚘𝚊𝚍𝚒𝚗𝚐 𝚎𝚡𝚙𝚕𝚊𝚗𝚊𝚝𝚒𝚘𝚗...`
+			text: `⏳ Loading explanation...`
 		}, { quoted: mek });
 
 		let response;
@@ -157,15 +172,17 @@ async (conn, mek, m, { from, sender, reply, q }) => {
 		} catch (apiErr) {
 			console.error('API Error:', apiErr);
 			await conn.sendMessage(from, { delete: loadMsg.key });
-			return reply(`❌ 𝙰𝙿𝙸 𝚎𝚛𝚛𝚘𝚛`, { quoted: fakevCard });
+			return reply(`❌ API error\n\n> 🔥 Powered by JAMALI TECH TZ`, { quoted: fakevCard });
 		}
 
 		if (!response) {
 			await conn.sendMessage(from, { delete: loadMsg.key });
-			return reply(`❌ 𝙽𝚘 𝚛𝚎𝚜𝚘𝚞𝚕𝚝𝚜`);
+			return reply(`❌ No results`);
 		}
 
-		const explainMsg = `┏━❑ 𝐃𝐄𝐓𝐀𝐈𝐋𝐄𝐃 𝐄𝐗𝐏𝐋𝐀𝐍𝐀𝐓𝐈𝐎𝐍 ━━━━━━\n┃\n${response.substring(0, 4000).split('\n').map(line => `┃ ${line}`).join('\n')}\n┃\n┗━━━━━━━━━━━━━━━━━━━━`;
+		const explainMsg = `┏━❑ DETAILED EXPLANATION ━━━━━━\n┃\n${response.substring(0, 4000).split('\n').map(line => `┃ ${line}`).join('\n')}\n┃\n┗━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`;
 
 		await conn.sendMessage(from, { delete: loadMsg.key });
 		await conn.sendMessage(from, {
@@ -175,6 +192,6 @@ async (conn, mek, m, { from, sender, reply, q }) => {
 
 	} catch (err) {
 		console.error('AIX error:', err);
-		reply(`❌ 𝙴𝚛𝚛𝚘𝚛 𝚙𝚘𝚌𝚎𝚜𝚜𝚒𝚖𝚐`, { quoted: fakevCard });
+		reply(`❌ Error processing\n\n> 🔥 Powered by JAMALI TECH TZ`, { quoted: fakevCard });
 	}
 });
