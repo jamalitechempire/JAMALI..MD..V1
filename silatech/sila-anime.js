@@ -1,3 +1,5 @@
+// JAMALI MD - Anime Stickers & Actions
+
 const axios = require('axios');
 const { exec } = require('child_process');
 const fs = require('fs');
@@ -44,7 +46,7 @@ async function sendAnimu(conn, chatId, message, type) {
 
         const json = {
             'sticker-pack-id': crypto.randomBytes(32).toString('hex'),
-            'sticker-pack-name': 'Anime Stickers',
+            'sticker-pack-name': 'JAMALI MD Stickers',
             'emojis': ['🎌']
         };
         const exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00]);
@@ -131,7 +133,7 @@ try{
     if (!sub) {
         await conn.sendMessage(
             from,
-            { text: `🎌 Usage: .animu <type>\nTypes: ${supported.join(', ')}` },
+            { text: `🎌 Usage: .animu <type>\nTypes: ${supported.join(', ')}\n\n> 🔥 Powered by JAMALI TECH TZ` },
             { quoted: mek }
         );
         return;
@@ -140,7 +142,7 @@ try{
     if (!supported.includes(sub)) {
         await conn.sendMessage(
             from,
-            { text: `❌ Unsupported type: ${sub}\nTry one of: ${supported.join(', ')}` },
+            { text: `❌ Unsupported type: ${sub}\nTry one of: ${supported.join(', ')}\n\n> 🔥 Powered by JAMALI TECH TZ` },
             { quoted: mek }
         );
         return;
@@ -151,7 +153,7 @@ try{
 } catch (e) {
     await conn.sendMessage(
         from,
-        { text: '❌ An error occurred while fetching animu.' },
+        { text: '❌ An error occurred while fetching animu.\n\n> 🔥 Powered by JAMALI TECH TZ' },
         { quoted: mek }
     );
     l(e);
