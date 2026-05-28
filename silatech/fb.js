@@ -3,6 +3,8 @@ const axios = require('axios');
 const fs = require('fs-extra');
 const path = require('path');
 
+// JAMALI MD - Facebook Video Downloader
+
 cmd({
     pattern: "fb2",
     alias: ["facebook2", "fbdl2"],
@@ -15,14 +17,14 @@ cmd({
         const text = mek.message?.conversation || mek.message?.extendedTextMessage?.text || args.join(" ");
         
         if (!text || text.trim().length < 2) {
-            return reply("*𝙵𝙰𝙲𝙴𝙱𝙾𝙾𝙺 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁*\n\n*𝚄𝚂𝙰𝙶𝙴:* .fb facebook_url\n*𝙴𝚇𝙰𝙼𝙿𝙻𝙴:* .fb https://fb.watch/xxx\n\n*𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡*");
+            return reply("*FACEBOOK DOWNLOADER*\n\n*USAGE:* .fb facebook_url\n*EXAMPLE:* .fb https://fb.watch/xxx\n\n*🔥 Powered by JAMALI TECH TZ*");
         }
 
         // Extract URL from command
         const url = text.replace(/^\.(fb|facebook|fbdl)\s+/i, "").trim();
         
         if (!url) {
-            return reply("*𝙿𝚕𝚎𝚊𝚜𝚎 𝚙𝚛𝚘𝚟𝚒𝚍𝚎 𝚊 𝙵𝚊𝚌𝚎𝚋𝚘𝚘𝚔 𝚕𝚒𝚗𝚔*");
+            return reply("*Please provide a Facebook link*");
         }
 
         // Validate Facebook URL
@@ -36,10 +38,10 @@ cmd({
         const isValidUrl = facebookPatterns.some(pattern => pattern.test(url));
         
         if (!isValidUrl) {
-            return reply("*𝚃𝚑𝚊𝚝 𝚒𝚜 𝚗𝚘𝚝 𝚊 𝚟𝚊𝚕𝚒𝚍 𝙵𝚊𝚌𝚎𝚋𝚘𝚘𝚔 𝚕𝚒𝚗𝚔*");
+            return reply("*That is not a valid Facebook link*");
         }
 
-        await reply("*🔍 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍𝚒𝚗𝚐 𝙵𝚊𝚌𝚎𝚋𝚘𝚘𝚔 𝚟𝚒𝚍𝚎𝚘...*");
+        await reply("*🔍 Downloading Facebook video...*");
 
         // Resolve share/short URLs to their final destination first
         let resolvedUrl = url;
@@ -89,13 +91,13 @@ cmd({
         const data = response.data;
 
         if (!data || data.status !== 200 || !data.success || !data.result) {
-            return reply("*❌ 𝚂𝚘𝚛𝚛𝚢, 𝚝𝚑𝚎 𝙰𝙿𝙸 𝚍𝚒𝚍 𝚗𝚘𝚝 𝚛𝚎𝚝𝚞𝚛𝚗 𝚟𝚊𝚕𝚒𝚍 𝚍𝚊𝚝𝚊*");
+            return reply("*❌ Sorry, the API did not return valid data*");
         }
 
         const fbvid = data.result.hd_video || data.result.sd_video;
 
         if (!fbvid) {
-            return reply("*❌ 𝚆𝚛𝚘𝚗𝚐 𝙵𝚊𝚌𝚎𝚋𝚘𝚘𝚔 𝚍𝚊𝚝𝚊. 𝙿𝚕𝚎𝚊𝚜𝚎 𝚎𝚗𝚜𝚞𝚛𝚎 𝚝𝚑𝚎 𝚟𝚒𝚍𝚎𝚘 𝚎𝚡𝚒𝚜𝚝𝚜*");
+            return reply("*❌ Wrong Facebook data. Please ensure the video exists*");
         }
 
         // Create temp directory if it doesn't exist
@@ -136,12 +138,12 @@ cmd({
             }
 
             // Send the video
-            const caption = `╭━━【 📥 𝙵𝙰𝙲𝙴𝙱𝙾𝙾𝙺 】━━━╮
-│ 📥 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍𝚎𝚍 𝚜𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢
-│ 📹 𝚀𝚞𝚊𝚕𝚒𝚝𝚢: ${data.result.hd_video ? "𝙷𝙳" : "𝚂𝙳"}
+            const caption = `╭━━【 📥 FACEBOOK 】━━━╮
+│ 📥 Downloaded successfully
+│ 📹 Quality: ${data.result.hd_video ? "HD" : "SD"}
 ╰━━━━━━━━━━━━━━━━━━━╯
 
-> 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+> 🔥 Powered by JAMALI TECH TZ`;
 
             await conn.sendMessage(from, {
                 video: { url: tempFile },
@@ -165,12 +167,12 @@ cmd({
             
             // Try sending via URL directly
             try {
-                const caption = `╭━━【 📥 𝙵𝙰𝙲𝙴𝙱𝙾𝙾𝙺 】━━━╮
-│ 📥 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍𝚎𝚍 𝚜𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢
-│ 📹 𝚀𝚞𝚊𝚕𝚒𝚝𝚢: ${data.result.hd_video ? "𝙷𝙳" : "𝚂𝙳"}
+                const caption = `╭━━【 📥 FACEBOOK 】━━━╮
+│ 📥 Downloaded successfully
+│ 📹 Quality: ${data.result.hd_video ? "HD" : "SD"}
 ╰━━━━━━━━━━━━━━━━━━━╯
 
-> 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+> 🔥 Powered by JAMALI TECH TZ`;
 
                 await conn.sendMessage(from, {
                     video: { url: fbvid },
@@ -182,14 +184,14 @@ cmd({
                 
             } catch (urlError) {
                 console.error('URL send error:', urlError);
-                reply("*❌ 𝙵𝚊𝚒𝚕𝚎𝚍 𝚝𝚘 𝚍𝚘𝚠𝚗𝚕𝚘𝚊𝚍 𝙵𝚊𝚌𝚎𝚋𝚘𝚘𝚔 𝚟𝚒𝚍𝚎𝚘*");
+                reply("*❌ Failed to download Facebook video*");
                 await m.react("❌");
             }
         }
 
     } catch (error) {
         console.error('Error in Facebook command:', error);
-        reply("*❌ 𝙴𝚛𝚛𝚘𝚛 𝚍𝚘𝚠𝚗𝚕𝚘𝚊𝚍𝚒𝚗𝚐 𝙵𝚊𝚌𝚎𝚋𝚘𝚘𝚔 𝚟𝚒𝚍𝚎𝚘*");
+        reply("*❌ Error downloading Facebook video*");
         await m.react("❌");
     }
 });
