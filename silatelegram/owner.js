@@ -1,24 +1,53 @@
 module.exports = {
     command: 'owner',
-    function: async (ctx) => {
+    function: async (ctx) {
         try {
             const { Markup } = require('telegraf');
             
-            const ownerInfo = `👑 *𝙾𝚆𝙽𝙴𝚁 𝙸𝙽𝙵𝙾𝚁𝙼𝙰𝚃𝙸𝙾𝙽* 👑\n\n📛 𝙽𝚊𝚖𝚎: 𝚂𝚒𝚕𝚊 𝚃𝚎𝚌𝚑\n📞 𝙿𝚑𝚘𝚗𝚎: +255 789 661 031\n📧 𝙴𝚖𝚊𝚒𝚕: silatech@example.com\n🌐 𝙻𝚘𝚌𝚊𝚝𝚒𝚘𝚗: 𝚃𝚊𝚗𝚣𝚊𝚗𝚒𝚊\n\n🔗 *𝚂𝚘𝚌𝚒𝚊𝚕 𝙻𝚒𝚗𝚔𝚜:*\n• 𝙶𝚒𝚝𝙷𝚞𝚋: https://github.com/Sila-Md\n• 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙: https://wa.me/255789661031\n• 𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖: @silatech_admin\n• 𝚈𝚘𝚞𝚃𝚞𝚋𝚎: 𝚂𝚒𝚕𝚊 𝚃𝚎𝚌𝚑\n\n💡 *𝙵𝚘𝚛 𝚜𝚞𝚙𝚙𝚘𝚛𝚝, 𝚋𝚞𝚐 𝚛𝚎𝚙𝚘𝚛𝚝𝚜, 𝚘𝚛 𝚏𝚎𝚊𝚝𝚞𝚛𝚎 𝚛𝚎𝚚𝚞𝚎𝚜𝚝𝚜, 𝚙𝚕𝚎𝚊𝚜𝚎 𝚌𝚘𝚗𝚝𝚊𝚌𝚝 𝚖𝚎 𝚍𝚒𝚛𝚎𝚌𝚝𝚕𝚢.*\n\n> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+            const ownerInfo = 
+`👑 *JAMALI TECH TZ - OWNER INFO* 👑
+
+┌───< *📋 PERSONAL DETAILS* >───
+│ 📛 *Name:* JAMALI TECH TZ
+│ 📞 *Phone:* +255 784 062 158
+│ 🌍 *Country:* Tanzania
+│ 👑 *Role:* Founder & Developer
+└────────────────────────
+
+┌───< *🔗 OFFICIAL LINKS* >───
+│ 🐙 *GitHub:* [JAMALI-MD](https://github.com/Jamali-md/JAMALI-MD)
+│ 📱 *WhatsApp:* [Channel](https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h)
+│ 👥 *Support:* [Group](https://chat.whatsapp.com/GPdlJ8ip88K39E5Hok7rJh)
+│ 🤖 *Bot:* [@Jamali_MD_Bot](https://t.me/Jamali_MD_Bot)
+└────────────────────────
+
+┌───< *💡 SUPPORT & INFO* >───
+│ ✅ Bug reports? Contact owner.
+│ ✅ Feature requests? Open an issue.
+│ ✅ Partnership? DM on WhatsApp.
+│ ✅ Payment & premium? Ask owner.
+└────────────────────────
+
+> 🔥 *Powered by JAMALI TECH TZ* 🔥
+© 2026 JAMALI MD - All rights reserved.`;
             
             const buttons = Markup.inlineKeyboard([
                 [
-                    Markup.button.url('📱 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙', 'https://wa.me/255789661031'),
-                    Markup.button.url('📢 𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖', 'https://t.me/silatech_admin')
+                    Markup.button.url('📱 WhatsApp', 'https://wa.me/255784062158'),
+                    Markup.button.url('📢 Channel', 'https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h')
                 ],
                 [
-                    Markup.button.url('⭐ 𝙶𝚒𝚝𝙷𝚞𝚋', 'https://github.com/Sila-Md'),
-                    Markup.button.url('👥 𝚂𝚞𝚙𝚙𝚘𝚛𝚝', 'https://t.me/sila_md')
+                    Markup.button.url('👥 Group', 'https://chat.whatsapp.com/GPdlJ8ip88K39E5Hok7rJh'),
+                    Markup.button.url('⭐ GitHub', 'https://github.com/Jamali-md/JAMALI-MD')
+                ],
+                [
+                    Markup.button.callback('🔧 Bot Menu', 'main_menu'),
+                    Markup.button.callback('📊 Status', 'check_status')
                 ]
             ]);
             
             await ctx.replyWithPhoto(
-                { url: 'https://files.catbox.moe/natk49.jpg' },
+                { url: 'https://files.catbox.moe/0e3rok.jpg' },
                 {
                     caption: ownerInfo,
                     parse_mode: 'Markdown',
@@ -26,7 +55,17 @@ module.exports = {
                 }
             );
         } catch (error) {
-            await ctx.reply(`👑 *𝙾𝚆𝙽𝙴𝚁 𝙸𝙽𝙵𝙾𝚁𝙼𝙰𝚃𝙸𝙾𝙽* 👑\n\n📛 𝙽𝚊𝚖𝚎: 𝚂𝚒𝚕𝚊 𝚃𝚎𝚌𝚑\n📞 𝙿𝚑𝚘𝚗𝚎: +255 789 661 031\n📧 𝙴𝚖𝚊𝚒𝚕: silatech@example.com\n\n🔗 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙: https://wa.me/255789661031\n\n> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`, { parse_mode: 'Markdown' });
+            // Fallback simple message
+            await ctx.reply(
+                `👑 *JAMALI TECH TZ* 👑\n\n` +
+                `📛 *Name:* JAMALI TECH TZ\n` +
+                `📞 *Phone:* +255 784 062 158\n` +
+                `🌍 *Country:* Tanzania\n\n` +
+                `📱 *WhatsApp:* wa.me/255784062158\n` +
+                `📢 *Channel:* https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h\n\n` +
+                `> 🔥 Powered by JAMALI TECH TZ`,
+                { parse_mode: 'Markdown' }
+            );
         }
     }
 };
