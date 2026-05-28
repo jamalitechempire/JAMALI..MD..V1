@@ -10,7 +10,7 @@ cmd({
 }, async (conn, mek, m, { from, reply, args, isCreator }) => {
     try {
         if (!isCreator) {
-            return reply("This command is only for bot owner");
+            return reply("🔒 Owner only command\n\n> 🔥 Powered by JAMALI TECH TZ");
         }
 
         const action = args[0]?.toLowerCase();
@@ -21,7 +21,7 @@ cmd({
                 const blocked = await conn.fetchBlocklist();
                 
                 if (!blocked || blocked.length === 0) {
-                    return reply("No blocked numbers found");
+                    return reply("📭 No blocked numbers found\n\n> 🔥 Powered by JAMALI TECH TZ");
                 }
                 
                 let listMessage = `🚫 *BLOCKED NUMBERS* (${blocked.length})\n\n`;
@@ -30,20 +30,20 @@ cmd({
                     listMessage += `${index + 1}. ${number}\n`;
                 });
                 
-                listMessage += `\nUse:\n.blocklist add 255xxxxxxxxx\n.blocklist remove 255xxxxxxxxx\n.blocklist check 255xxxxxxxxx`;
+                listMessage += `\nUse:\n.blocklist add 255xxxxxxxxx\n.blocklist remove 255xxxxxxxxx\n.blocklist check 255xxxxxxxxx\n\n> 🔥 Powered by JAMALI TECH TZ`;
                 
                 await reply(listMessage);
                 
             } catch (error) {
                 console.error("Error fetching blocklist:", error);
-                return reply("Failed to fetch blocklist");
+                return reply("❌ Failed to fetch blocklist\n\n> 🔥 Powered by JAMALI TECH TZ");
             }
         }
         else if (action === 'add' || action === 'block') {
             // Block a number
             const number = args[1];
             if (!number) {
-                return reply("Please provide a number to block\nExample: .blocklist add 255123456789");
+                return reply("❌ Please provide a number to block\nExample: .blocklist add 255784062158\n\n> 🔥 Powered by JAMALI TECH TZ");
             }
             
             try {
@@ -52,12 +52,12 @@ cmd({
                 const jid = formattedNumber.includes('@') ? formattedNumber : formattedNumber + '@s.whatsapp.net';
                 
                 await conn.updateBlockStatus(jid, 'block');
-                await reply(`✅ Number blocked: ${formattedNumber}`);
+                await reply(`✅ Number blocked: ${formattedNumber}\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 await m.react("✅");
                 
             } catch (error) {
                 console.error("Error blocking number:", error);
-                await reply(`❌ Failed to block number: ${error.message}`);
+                await reply(`❌ Failed to block number: ${error.message}\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 await m.react("❌");
             }
         }
@@ -65,7 +65,7 @@ cmd({
             // Unblock a number
             const number = args[1];
             if (!number) {
-                return reply("Please provide a number to unblock\nExample: .blocklist remove 255123456789");
+                return reply("❌ Please provide a number to unblock\nExample: .blocklist remove 255784062158\n\n> 🔥 Powered by JAMALI TECH TZ");
             }
             
             try {
@@ -74,12 +74,12 @@ cmd({
                 const jid = formattedNumber.includes('@') ? formattedNumber : formattedNumber + '@s.whatsapp.net';
                 
                 await conn.updateBlockStatus(jid, 'unblock');
-                await reply(`✅ Number unblocked: ${formattedNumber}`);
+                await reply(`✅ Number unblocked: ${formattedNumber}\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 await m.react("✅");
                 
             } catch (error) {
                 console.error("Error unblocking number:", error);
-                await reply(`❌ Failed to unblock number: ${error.message}`);
+                await reply(`❌ Failed to unblock number: ${error.message}\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 await m.react("❌");
             }
         }
@@ -87,7 +87,7 @@ cmd({
             // Check if a number is blocked
             const number = args[1];
             if (!number) {
-                return reply("Please provide a number to check\nExample: .blocklist check 255123456789");
+                return reply("❌ Please provide a number to check\nExample: .blocklist check 255784062158\n\n> 🔥 Powered by JAMALI TECH TZ");
             }
             
             try {
@@ -98,12 +98,12 @@ cmd({
                 const blocked = await conn.fetchBlocklist();
                 const isBlocked = blocked.includes(jid);
                 
-                await reply(`📱 *Number:* ${formattedNumber}\n🔒 *Status:* ${isBlocked ? 'Blocked 🚫' : 'Not Blocked ✅'}`);
+                await reply(`📱 *Number:* ${formattedNumber}\n🔒 *Status:* ${isBlocked ? 'Blocked 🚫' : 'Not Blocked ✅'}\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 await m.react(isBlocked ? "🚫" : "✅");
                 
             } catch (error) {
                 console.error("Error checking block status:", error);
-                await reply(`❌ Failed to check block status: ${error.message}`);
+                await reply(`❌ Failed to check block status: ${error.message}\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 await m.react("❌");
             }
         }
@@ -112,14 +112,14 @@ cmd({
             const confirm = args[1];
             
             if (!confirm || confirm !== 'yes') {
-                return reply("⚠️ *WARNING: This will unblock ALL numbers!*\n\nTo confirm, type: .blocklist clear yes");
+                return reply("⚠️ *WARNING: This will unblock ALL numbers!*\n\nTo confirm, type: .blocklist clear yes\n\n> 🔥 Powered by JAMALI TECH TZ");
             }
             
             try {
                 const blocked = await conn.fetchBlocklist();
                 
                 if (!blocked || blocked.length === 0) {
-                    return reply("No blocked numbers to unblock");
+                    return reply("📭 No blocked numbers to unblock\n\n> 🔥 Powered by JAMALI TECH TZ");
                 }
                 
                 // Unblock each number
@@ -131,12 +131,12 @@ cmd({
                     }
                 }
                 
-                await reply(`✅ Successfully unblocked ${blocked.length} numbers`);
+                await reply(`✅ Successfully unblocked ${blocked.length} numbers\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 await m.react("✅");
                 
             } catch (error) {
                 console.error("Error clearing blocklist:", error);
-                await reply(`❌ Failed to clear blocklist: ${error.message}`);
+                await reply(`❌ Failed to clear blocklist: ${error.message}\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 await m.react("❌");
             }
         }
@@ -152,19 +152,21 @@ cmd({
 .blocklist help - Show this help
 
 *Examples:*
-.blocklist add 255123456789
-.blocklist remove 255123456789
-.blocklist check 255123456789`;
+.blocklist add 255784062158
+.blocklist remove 255784062158
+.blocklist check 255784062158
+
+> 🔥 Powered by JAMALI TECH TZ`;
             
             await reply(helpMessage);
         }
         else {
-            return reply("Invalid command\nUse: .blocklist help for all commands");
+            return reply("❌ Invalid command\nUse: .blocklist help for all commands\n\n> 🔥 Powered by JAMALI TECH TZ");
         }
         
     } catch (error) {
         console.error("Blocklist command error:", error);
-        await reply(`❌ Error: ${error.message}`);
+        await reply(`❌ Error: ${error.message}\n\n> 🔥 Powered by JAMALI TECH TZ`);
         await m.react("❌");
     }
 });
