@@ -1,3 +1,5 @@
+// JAMALI MD - Change Group Profile Picture
+
 const { cmd } = require('../momy')
 const fs = require('fs')
 const axios = require('axios')
@@ -16,13 +18,13 @@ cmd({
 async (conn, mek, m, { from, isGroup, isAdmins, isBotAdmins, args, reply }) => {
     try {
         if (!isGroup)
-            return reply("*YEH COMMAND SIRF GROUPS ME USE KARE 😊*")
+            return reply("*❌ This command only works in groups*")
 
         if (!isAdmins)
-            return reply("*YEH COMMAND SIRF GROUP ADMINS USE KAR SAKTE HAI 😊*")
+            return reply("*❌ Only group admins can use this command*")
 
         if (!isBotAdmins)
-            return reply("*PEHLE MUJHE GROUP ADMIN BANAO 🥺*")
+            return reply("*❌ Please make the bot an admin first*")
 
         const quoted = m.quoted ? m.quoted : m
         const mime = (quoted.msg || quoted).mimetype || ""
@@ -51,10 +53,11 @@ async (conn, mek, m, { from, isGroup, isAdmins, isBotAdmins, args, reply }) => {
 
         else {
             return reply(
-                "*📸 GROUP PHOTO SET KARNE KE LIYE:*\n\n" +
-                "• Kisi image ko reply karo\n" +
-                "• Ya image URL do\n\n" +
-                "*Example:*\n.grouppic https://image-url"
+                "*📸 To change group profile picture:*\n\n" +
+                "• Reply to an image\n" +
+                "• Or provide an image URL\n\n" +
+                "*Example:*\n.grouppic https://image-url\n\n" +
+                "> 🔥 Powered by JAMALI TECH TZ"
             )
         }
 
@@ -63,10 +66,10 @@ async (conn, mek, m, { from, isGroup, isAdmins, isBotAdmins, args, reply }) => {
 
         fs.unlinkSync(imagePath)
 
-        reply("*✅ GROUP KI PROFILE PHOTO CHANGE HO GAYI HAI 🖼️*")
+        reply("*✅ Group profile picture updated successfully*\n\n> 🔥 Powered by JAMALI TECH TZ")
 
     } catch (e) {
         console.log("GROUPPIC ERROR:", e)
-        reply("*❌ GROUP PHOTO CHANGE NAHI HO SAKI 🥺*")
+        reply("*❌ Failed to update group profile picture*\n\n> 🔥 Powered by JAMALI TECH TZ")
     }
 })
