@@ -40,7 +40,7 @@ async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, send
         const isVideo = !!mediaMessage.videoMessage || mediaMessage.mimetype?.startsWith("video");
 
         // Random reaction for style
-        const reactions = ['👁️', '🔓', '📸', '🎥', '✨'];
+        const reactions = ['👁️', '🔓', '📸', '🎥', '✨', '⚡', '🔥'];
         const randomReact = reactions[Math.floor(Math.random() * reactions.length)];
         
         await conn.sendMessage(from, {
@@ -60,12 +60,12 @@ async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, send
 
         // Send the revealed media with styled caption
         const mediaType = isImage ? "image" : "video";
-        const caption = `╭━━【 𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 𝙱𝙾𝚃 】━━━━━━━━╮
+        const caption = `╭━━【 JAMALI MD BOT 】━━━━━━━━╮
 │ *view-once revealed*
 │ *type:* ${isImage ? '🖼️ image' : '🎥 video'}
 ╰━━━━━━━━━━━━━━━━━━━━╯
 
-${config.BOT_FOOTER || '> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡'}`;
+${config.BOT_FOOTER || '> 🔥 Powered by JAMALI TECH TZ'}`;
 
         await conn.sendMessage(from, {
             [mediaType]: buffer,
