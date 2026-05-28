@@ -1,10 +1,10 @@
 const { cmd } = require('../momy');
 const axios = require('axios');
 
-const REPO_IMAGE = 'https://files.catbox.moe/36vahk.png';
-const REPO_LINK = 'https://github.com/Sila-Md/SILA-MD';
+const REPO_IMAGE = 'https://files.catbox.moe/0e3rok.jpg';
+const REPO_LINK = 'https://github.com/jamalitechempire/jamali-bot';
 
-// Define combined fakevCard 
+// Define combined fakevCard (JAMALI MD)
 const fakevCard = {
   key: {
     fromMe: false,
@@ -13,19 +13,19 @@ const fakevCard = {
   },
   message: {
     contactMessage: {
-      displayName: "© 𝐒𝐈𝐋𝐀-𝐌𝐃",
-      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:𝐒𝐈𝐋𝐀 𝐌𝐃 𝐁𝐎𝐓\nORG:𝐒𝐈𝐋𝐀-𝐌𝐃;\nTEL;type=CELL;type=VOICE;waid=255789661031:+255789661031\nEND:VCARD`
+      displayName: "© JAMALI MD",
+      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:JAMALI MD BOT\nORG:JAMALI TECH TZ;\nTEL;type=CELL;type=VOICE;waid=255784062158:+255784062158\nEND:VCARD`
     }
   }
 };
 
 // Utility function for formatted messages
-function silaMessage(text) {
+function jamaliMessage(text) {
   return {
     text: text,
     contextInfo: {
       externalAdReply: {
-        title: 'SILA-MD',
+        title: 'JAMALI MD',
         body: 'GitHub Repository ‧ Verified',
         thumbnailUrl: REPO_IMAGE,
         sourceUrl: REPO_LINK,
@@ -34,8 +34,8 @@ function silaMessage(text) {
         mediaType: 1
       },
       forwardedNewsletterMessageInfo: {
-        newsletterJid: '120363402325089913@newsletter',
-        newsletterName: 'SILA TECH',
+        newsletterJid: '120363425061263455@newsletter',
+        newsletterName: 'JAMALI MD',
         serverMessageId: Math.floor(Math.random() * 1000000)
       },
       isForwarded: true,
@@ -59,7 +59,7 @@ async (conn, mek, m, { from, sender, reply }) => {
         let forks = '🔀';
         
         try {
-            const response = await axios.get('https://api.github.com/repos/Sila-Md/SILA-MD');
+            const response = await axios.get('https://api.github.com/repos/jamalitechempire/jamali-bot');
             stars = response.data.stargazers_count || '⭐';
             forks = response.data.forks_count || '🔀';
         } catch (err) {
@@ -67,23 +67,25 @@ async (conn, mek, m, { from, sender, reply }) => {
         }
         
         const repoMessage = 
-`┏━❑ 𝐒𝐈𝐋𝐀-𝐌𝐃 𝙶𝙸𝚃𝙷𝚄𝙱 ━━━━━━━━━
-┃ 📦 𝚁𝚎𝚙𝚘𝚜𝚒𝚝𝚘𝚛𝚢: SILA-MD
-┃ 👨‍💻 𝙳𝚎𝚟𝚎𝚕𝚘𝚙𝚎𝚛: Sila Tech
-┃ 🔗 𝙻𝚒𝚗𝚔: https://github.com/Sila-Md/SILA-MD
+`┏━❑ JAMALI MD GITHUB ━━━━━━━━━
+┃ 📦 Repository: jamali-bot
+┃ 👨‍💻 Developer: JAMALI TECH TZ
+┃ 🔗 Link: ${REPO_LINK}
 ┃
-┃ ⭐ 𝚂𝚝𝚊𝚛𝚜: ${stars}
-┃ 🔀 𝙵𝚘𝚛𝚔𝚜: ${forks}
+┃ ⭐ Stars: ${stars}
+┃ 🔀 Forks: ${forks}
 ┃
-┃ 🛠️ 𝙾𝚙𝚎𝚗 𝚂𝚘𝚞𝚛𝚌𝚎 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝙱𝚘𝚝
-┃ 💚 𝙼𝚊𝚍𝚎 𝚠𝚒𝚝𝚑 ❤️ 𝚋𝚢 𝚂𝚒𝚕𝚊 𝚃𝚎𝚌𝚑
-┗━━━━━━━━━━━━━━━━━━━━`;
+┃ 🛠️ Open Source WhatsApp Bot
+┃ 💚 Made with ❤️ by JAMALI TECH TZ
+┗━━━━━━━━━━━━━━━━━━━━
 
-        const messageData = silaMessage(repoMessage);
+> 🔥 Powered by JAMALI TECH TZ`;
+
+        const messageData = jamaliMessage(repoMessage);
         
         await conn.sendMessage(from, messageData, { quoted: fakevCard });
         
     } catch (e) {
-        reply("❌ 𝙴𝚛𝚛𝚘𝚛: " + e.message);
+        reply("❌ Error: " + e.message);
     }
 });
