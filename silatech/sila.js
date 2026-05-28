@@ -1,8 +1,8 @@
 const { cmd } = require('../momy');
 
 cmd({
-    pattern: "sila",
-    alias: ["dev", "creator", "bot"],
+    pattern: "jamali",
+    alias: ["dev", "creator", "bot", "ownerinfo"],
     desc: "bot developer information",
     category: "main",
     react: "👑",
@@ -10,47 +10,47 @@ cmd({
 }, async (conn, mek, m, { from, reply, myquoted }) => {
     try {
         const response = await conn.sendMessage(from, {
-            image: { url: "https://files.catbox.moe/dlvrav.jpg" },
-            caption: `╭━━【 👑 𝚂𝙸𝙻𝙰 𝚃𝙴𝙲𝙷 】━━━╮
+            image: { url: "https://files.catbox.moe/0e3rok.jpg" },
+            caption: `╭━━【 👑 JAMALI TECH TZ 】━━━╮
 │ 
-│ *👤 𝙽𝙰𝙼𝙴:* 𝚂𝙸𝙻𝙰 𝚃𝙴𝙲𝙷
-│ *🎯 𝚁𝙾𝙻𝙴:* 𝙱𝚘𝚝 𝙳𝚎𝚟𝚎𝚕𝚘𝚙𝚎𝚛 & 𝙾𝚠𝚗𝚎𝚛
-│ *💻 𝚂𝙿𝙴𝙲𝙸𝙰𝙻𝙸𝚃𝚈:* 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝙱𝚘𝚝 𝙳𝚎𝚟𝚎𝚕𝚘𝚙𝚖𝚎𝚗𝚝
-│ *🌟 𝙴𝚇𝙿𝙴𝚁𝙸𝙴𝙽𝙲𝙴:* 𝟹+ 𝚈𝚎𝚊𝚛𝚜
-│ 
-│ ──────────────────
-│ *📞 𝙲𝙾𝙽𝚃𝙰𝙲𝚃 𝙸𝙽𝙵𝙾:*
-│ 📱 *𝙿𝚑𝚘𝚗𝚎:* +255789661031
-│ 📧 *𝙴𝚖𝚊𝚒𝚕:* silatech.dev@gmail.com
+│ *👤 NAME:* JAMALI TECH TZ
+│ *🎯 ROLE:* Bot Developer & Owner
+│ *💻 SPECIALITY:* WhatsApp Bot Development
+│ *🌟 EXPERIENCE:* 3+ Years
 │ 
 │ ──────────────────
-│ *🔧 𝚂𝙴𝚁𝚅𝙸𝙲𝙴𝚂 𝙾𝙵𝙵𝙴𝚁𝙴𝙳:*
-│ 🤖 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝙱𝚘𝚝 𝙳𝚎𝚟𝚎𝚕𝚘𝚙𝚖𝚎𝚗𝚝
-│ 💾 𝙱𝚘𝚝 𝙷𝚘𝚜𝚝𝚒𝚗𝚐 & 𝙼𝚊𝚒𝚗𝚝𝚎𝚗𝚊𝚗𝚌𝚎
-│ 🔧 𝙱𝚘𝚝 𝚄𝚙𝚍𝚊𝚝𝚎𝚜 & 𝙵𝚒𝚡𝚎𝚜
-│ 📚 𝙲𝚞𝚜𝚝𝚘𝚖 𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜
+│ *📞 CONTACT INFO:*
+│ 📱 *Phone:* +255784062158
+│ 📧 *Email:* jamalitech@gmail.com
 │ 
 │ ──────────────────
-│ *🌐 𝙲𝙾𝙽𝙽𝙴𝙲𝚃 𝚆𝙸𝚃𝙷 𝙼𝙴:*
-│ 📢 *𝙲𝚑𝚊𝚗𝚗𝚎𝚕:* https://whatsapp.com/channel/0029VbBG4gfISTkCpKxyMH02
-│ 🤖 *𝙱𝚘𝚝 𝙻𝚒𝚗𝚔:* https://momy-kidy-freebot.onrender.com
+│ *🔧 SERVICES OFFERED:*
+│ 🤖 WhatsApp Bot Development
+│ 💾 Bot Hosting & Maintenance
+│ 🔧 Bot Updates & Fixes
+│ 📚 Custom Commands
+│ 
+│ ──────────────────
+│ *🌐 CONNECT WITH ME:*
+│ 📢 *Channel:* https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h
+│ 🤖 *Bot Link:* https://jamali-md.onrender.com
 │ 
 ╰━━━━━━━━━━━━━━━━━━━╯
 
-*𝙵𝙴𝙴𝙻 𝙵𝚁𝙴𝙴 𝚃𝙾 𝙲𝙾𝙽𝚃𝙰𝙲𝚃 𝙼𝙴 𝙵𝙾𝚁:*
-• 𝙱𝚘𝚝 𝙳𝚎𝚟𝚎𝚕𝚘𝚙𝚖𝚎𝚗𝚝
-• 𝙱𝚘𝚝 𝙼𝚘𝚍𝚒𝚏𝚒𝚌𝚊𝚝𝚒𝚘𝚗𝚜
-• 𝙲𝚞𝚜𝚝𝚘𝚖 𝙵𝚎𝚊𝚝𝚞𝚛𝚎𝚜
-• 𝚃𝚎𝚌𝚑𝚗𝚒𝚌𝚊𝚕 𝚂𝚞𝚙𝚙𝚘𝚛𝚝
+*FEEL FREE TO CONTACT ME FOR:*
+• Bot Development
+• Bot Modifications
+• Custom Features
+• Technical Support
 
-> 𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐃 𝐁𝐘 𝐒𝐈𝐋𝐀 𝐓𝐄𝐂𝐇`
+> 🔥 DEVELOPED BY JAMALI TECH TZ`
         }, { quoted: myquoted });
 
         await m.react("👑");
 
     } catch (error) {
-        console.error('Error in sila command:', error);
-        reply("*❌ 𝙴𝚛𝚛𝚘𝚛 𝚍𝚒𝚜𝚙𝚕𝚊𝚢𝚒𝚗𝚐 𝚍𝚎𝚟𝚎𝚕𝚘𝚙𝚎𝚛 𝚒𝚗𝚏𝚘*");
+        console.error('Error in jamali command:', error);
+        reply("*❌ Error displaying developer info*");
         await m.react("❌");
     }
 });
