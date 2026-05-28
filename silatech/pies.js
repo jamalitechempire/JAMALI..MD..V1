@@ -73,11 +73,11 @@ try{
     // Send image with styled caption
     await conn.sendMessage(from, {
         image: Buffer.from(response.data),
-        caption: `╭━━【 𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 𝙱𝙾𝚃 】━━━━━━━━╮
-│ *random ${countryCapitalized} beauty* ${flag}
+        caption: `╭━━【 JAMALI MD 】━━━━━━━━╮
+│ *Random ${countryCapitalized} beauty* ${flag}
 ╰━━━━━━━━━━━━━━━━━━━━╯
 
-${config.BOT_FOOTER || '> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡'}`
+${config.BOT_FOOTER || '> 🔥 Powered by JAMALI TECH TZ'}`
     }, { quoted: myquoted });
 
 } catch (e) {
