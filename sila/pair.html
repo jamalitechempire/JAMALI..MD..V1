@@ -2,84 +2,443 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>JAMALI MD | Pair Device</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>JAMALI MD | SECURE PAIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{background:radial-gradient(circle at 10% 20%,#050b1a,#010105);font-family:'Inter',sans-serif;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
-        .glass{max-width:500px;width:100%;background:rgba(12,15,30,0.6);backdrop-filter:blur(12px);border-radius:32px;border:1px solid rgba(0,246,255,0.2);padding:28px;box-shadow:0 25px 40px rgba(0,0,0,0.4)}
-        .logo{text-align:center;margin-bottom:20px}
-        .logo i{font-size:3rem;background:linear-gradient(135deg,#00f6ff,#b400ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-        h1{font-size:1.8rem;text-align:center;margin-bottom:15px;background:linear-gradient(135deg,#fff,#00f6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-        .info{background:#0a0d1a;border-radius:20px;padding:12px 16px;margin:20px 0}
-        .info-row{display:flex;justify-content:space-between;margin:8px 0}
-        .info-row a{color:#00ff88;text-decoration:none}
-        .status{display:flex;align-items:center;justify-content:center;gap:8px;margin:15px 0}
-        .dot{width:8px;height:8px;background:#0f0;border-radius:50%;animation:pulse 1s infinite}
-        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-        input{width:100%;background:#05080f;border:1px solid #2a2f50;border-radius:60px;padding:14px 20px;color:#fff;outline:none;margin:15px 0}
-        input:focus{border-color:#00f6ff}
-        button{width:100%;background:linear-gradient(95deg,#00c6fb,#005bea);border:none;border-radius:60px;padding:14px;font-weight:600;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
-        .code-box{background:#000000aa;border-radius:28px;padding:20px;text-align:center;border:1px solid #b400ff;cursor:pointer;margin-top:20px}
-        .code{font-size:2rem;letter-spacing:6px;font-weight:800;color:#b400ff}
-        .footer{text-align:center;font-size:0.7rem;margin-top:20px;opacity:0.6}
-        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:#111;padding:10px 20px;border-radius:40px;transition:0.3s}
-        .toast.show{transform:translateX(-50%) translateY(0)}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #050b1a, #010105);
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* animated background grid */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 246, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 246, 255, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+        }
+        .cyber-grid::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 246, 255, 0.1), transparent 70%);
+            animation: pulseGlow 6s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* glass card */
+        .glass-card {
+            background: rgba(12, 15, 30, 0.55);
+            backdrop-filter: blur(14px);
+            border-radius: 32px;
+            border: 1px solid rgba(0, 246, 255, 0.3);
+            padding: 28px 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+            transition: 0.2s;
+        }
+        .glass-card:hover {
+            border-color: #00f6ff;
+            box-shadow: 0 0 20px rgba(0, 246, 255, 0.2);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo i {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #00f6ff, #b400ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, #00f6ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        /* info row */
+        .info-panel {
+            background: #0a0d1a;
+            border-radius: 24px;
+            padding: 14px 18px;
+            margin: 20px 0;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+        .info-row a {
+            color: #0f0;
+            text-decoration: none;
+        }
+        .info-row i {
+            width: 28px;
+            color: #00f6ff;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #0f0;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%,100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        input {
+            width: 100%;
+            background: #05080f;
+            border: 1px solid #2a2f50;
+            border-radius: 60px;
+            padding: 14px 20px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            margin: 10px 0;
+        }
+        input:focus {
+            border-color: #00f6ff;
+            box-shadow: 0 0 10px #00f6ff;
+        }
+
+        .btn {
+            background: linear-gradient(95deg, #00c6fb, #005bea);
+            border: none;
+            border-radius: 60px;
+            padding: 14px 20px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #00c6fb;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #00f6ff;
+            color: #00f6ff;
+            margin-top: 12px;
+        }
+
+        .code-box {
+            background: #000000aa;
+            border-radius: 28px;
+            padding: 18px;
+            text-align: center;
+            border: 1px solid #b400ff;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+        .code-digits {
+            font-size: 1.8rem;
+            letter-spacing: 6px;
+            font-weight: 800;
+            color: #b400ff;
+            font-family: monospace;
+        }
+
+        /* active bots section (hidden initially) */
+        .bots-section {
+            margin-top: 25px;
+            display: none;
+        }
+        .bots-card {
+            background: #0a0d1ae0;
+            border-radius: 28px;
+            padding: 20px;
+            border: 1px solid #00f6ff30;
+        }
+        .bot-item {
+            background: #05080f;
+            border-radius: 20px;
+            padding: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .bot-number {
+            font-family: monospace;
+            font-weight: 600;
+        }
+        .bot-status {
+            color: #0f0;
+            font-size: 0.8rem;
+        }
+        .disconnect-btn {
+            background: none;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            border-radius: 40px;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+        .password-prompt {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .password-prompt input {
+            flex: 1;
+            margin: 0;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 20px;
+            opacity: 0.5;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #111;
+            padding: 10px 20px;
+            border-radius: 40px;
+            transition: 0.3s;
+            z-index: 1000;
+            border-left: 4px solid #00f6ff;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 500px) {
+            .glass-card {
+                padding: 20px;
+            }
+            .code-digits {
+                font-size: 1.3rem;
+                letter-spacing: 4px;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="glass">
-    <div class="logo"><i class="fas fa-bolt"></i></div>
-    <h1>⚡ JAMALI MD</h1>
-    <div class="info">
-        <div class="info-row"><span><i class="fas fa-crown"></i> Owner</span><span><strong>JAMALI TECH TZ</strong> <i class="fab fa-whatsapp"></i> <a href="https://wa.me/255784062158">+255 784 062 158</a></span></div>
-        <div class="info-row"><span><i class="fas fa-hashtag"></i> Channel</span><span><a href="https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h" target="_blank">Join Channel →</a></span></div>
+<div class="cyber-grid"></div>
+<div class="container">
+    <div class="glass-card">
+        <div class="logo"><i class="fas fa-bolt"></i></div>
+        <h1>⚡ JAMALI MD</h1>
+        <div class="info-panel">
+            <div class="info-row">
+                <span><i class="fas fa-crown"></i> OWNER</span>
+                <span><strong>JAMALI TECH TZ</strong> <i class="fab fa-whatsapp"></i> <a href="https://wa.me/255784062158">+255 784 062 158</a></span>
+            </div>
+            <div class="info-row">
+                <span><i class="fas fa-hashtag"></i> CHANNEL</span>
+                <span><a href="https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h" target="_blank">Join Official Channel →</a></span>
+            </div>
+        </div>
+        <div class="status"><div class="dot"></div><span>SYSTEM READY</span></div>
+        
+        <input type="tel" id="phoneNumber" placeholder="Enter number with country code (e.g., 255784062158)" value="255">
+        <button class="btn" id="genPairBtn"><i class="fas fa-key"></i> GENERATE PAIRING CODE</button>
+        
+        <div class="code-box" id="codeBox">
+            <div class="code-digits" id="pairCodeDisplay">—— —— ——</div>
+            <div style="font-size:0.7rem; margin-top:6px"><i class="fas fa-copy"></i> tap to copy</div>
+        </div>
+        
+        <button class="btn btn-outline" id="viewBotsBtn"><i class="fas fa-eye"></i> VIEW ACTIVE BOTS (ADMIN)</button>
+        
+        <div id="botsContainer" class="bots-section">
+            <div class="bots-card">
+                <div id="botsList"></div>
+            </div>
+        </div>
     </div>
-    <div class="status"><div class="dot"></div><span>SYSTEM READY</span></div>
-    <input type="tel" id="phone" placeholder="Enter number with country code" value="255">
-    <button id="genBtn"><i class="fas fa-key"></i> GENERATE PAIRING CODE</button>
-    <div class="code-box" id="codeBox">
-        <div class="code" id="codeDisplay">—— —— ——</div>
-        <div style="font-size:0.7rem;margin-top:6px"><i class="fas fa-copy"></i> tap to copy</div>
-    </div>
-    <div class="footer">⚡ JAMALI TECH TZ • SECURE PAIRING</div>
+    <div class="footer">🔒 Secure pairing • Powered by JAMALI TECH TZ</div>
 </div>
 <div id="toast" class="toast"></div>
+
 <script>
-    function toast(msg,type='info'){
-        let t=document.getElementById('toast');
-        t.innerText=msg;
-        t.style.borderLeftColor=type==='error'?'#ff4444':'#00f6ff';
-        t.classList.add('show');
-        setTimeout(()=>t.classList.remove('show'),3000);
+    // ===================== CONFIG =====================
+    const ADMIN_PASSWORD = "JAMALI2026"; // change this to your desired password
+    let botsData = [];
+
+    function showToast(msg, type = 'info') {
+        const toast = document.getElementById('toast');
+        toast.innerText = msg;
+        toast.style.borderLeftColor = type === 'error' ? '#ff4444' : '#00f6ff';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
     }
-    document.getElementById('genBtn').onclick=async ()=>{
-        let num=document.getElementById('phone').value.replace(/\D/g,'');
-        if(num.length<9){toast('Invalid number','error');return;}
-        let btn=document.getElementById('genBtn');
-        let original=btn.innerHTML;
-        btn.innerHTML='<i class="fas fa-spinner fa-pulse"></i> PROCESSING...';
-        btn.disabled=true;
-        let codeDiv=document.getElementById('codeDisplay');
-        codeDiv.innerText='⏳';
-        try{
-            let res=await fetch(`/code?number=${num}`);
-            let data=await res.json();
-            if(data.code) codeDiv.innerText=data.code;
-            else if(data.status==='already_connected') codeDiv.innerText='ALREADY ACTIVE';
-            else codeDiv.innerText='FAILED';
-        }catch(e){ codeDiv.innerText='ERROR'; }
-        btn.innerHTML=original;
-        btn.disabled=false;
-    };
-    document.getElementById('codeBox').onclick=()=>{
-        let code=document.getElementById('codeDisplay').innerText;
-        if(code && !['—— —— ——','FAILED','ERROR','ALREADY ACTIVE','⏳'].includes(code)){
+
+    // ===================== PAIRING CODE =====================
+    async function generateCode() {
+        let number = document.getElementById('phoneNumber').value.replace(/\D/g, '');
+        if (number.length < 9) {
+            showToast('Invalid number (use country code)', 'error');
+            return;
+        }
+        const btn = document.getElementById('genPairBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> PROCESSING...';
+        btn.disabled = true;
+        const codeDiv = document.getElementById('pairCodeDisplay');
+        codeDiv.innerText = '⏳';
+        try {
+            const res = await fetch(`/code?number=${number}`);
+            const data = await res.json();
+            if (data.code) {
+                codeDiv.innerText = data.code;
+                showToast('✅ Pairing code generated!');
+            } else if (data.status === 'already_connected') {
+                codeDiv.innerText = 'ALREADY ACTIVE';
+                showToast('Bot already connected for this number', 'error');
+            } else {
+                codeDiv.innerText = 'FAILED';
+                showToast('Failed to generate code', 'error');
+            }
+        } catch (err) {
+            codeDiv.innerText = 'ERROR';
+            showToast('Server error', 'error');
+        }
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+
+    document.getElementById('genPairBtn').onclick = generateCode;
+    document.getElementById('codeBox').onclick = () => {
+        let code = document.getElementById('pairCodeDisplay').innerText;
+        if (code && !['—— —— ——', 'FAILED', 'ERROR', 'ALREADY ACTIVE', '⏳'].includes(code)) {
             navigator.clipboard.writeText(code);
-            toast('Copied!');
-        } else toast('No code to copy','error');
+            showToast('Code copied!');
+        } else {
+            showToast('No valid code to copy', 'error');
+        }
+    };
+
+    // ===================== ACTIVE BOTS (PASSWORD PROTECTED) =====================
+    let botsVisible = false;
+    let passwordAuthenticated = false;
+
+    async function fetchActiveBots() {
+        try {
+            const res = await fetch('/active');
+            const data = await res.json();
+            const numbers = data.numbers || [];
+            if (numbers.length === 0) {
+                document.getElementById('botsList').innerHTML = '<div style="text-align:center">No active bots connected.</div>';
+                return;
+            }
+            let html = '';
+            for (let num of numbers) {
+                try {
+                    const statusRes = await fetch(`/status?number=${num}`);
+                    const statusData = await statusRes.json();
+                    const uptime = (statusData.uptime || 0) + 's';
+                    html += `
+                        <div class="bot-item">
+                            <div><span class="bot-number">${num}</span><br><span class="bot-status">● ONLINE · ${uptime}</span></div>
+                            <button class="disconnect-btn" onclick="disconnectBot('${num}')">Disconnect</button>
+                        </div>
+                    `;
+                } catch(e) {}
+            }
+            document.getElementById('botsList').innerHTML = html || '<div>Error loading bots</div>';
+        } catch(e) {
+            document.getElementById('botsList').innerHTML = '<div>Failed to fetch active bots.</div>';
+        }
+    }
+
+    async function disconnectBot(number) {
+        if (confirm(`⚠️ Disconnect bot for ${number}? This will remove the session.`)) {
+            try {
+                await fetch(`/disconnect?number=${number}`);
+                showToast(`Bot ${number} disconnected`);
+                await fetchActiveBots(); // refresh
+            } catch(e) {
+                showToast('Error disconnecting', 'error');
+            }
+        }
+    }
+
+    const viewBtn = document.getElementById('viewBotsBtn');
+    const botsContainer = document.getElementById('botsContainer');
+
+    viewBtn.onclick = () => {
+        if (!passwordAuthenticated) {
+            const pass = prompt("🔐 Enter admin password to view active bots:");
+            if (pass === ADMIN_PASSWORD) {
+                passwordAuthenticated = true;
+                botsContainer.style.display = 'block';
+                fetchActiveBots();
+            } else {
+                showToast('Incorrect password', 'error');
+            }
+        } else {
+            // already authenticated, just toggle visibility
+            if (botsContainer.style.display === 'none' || botsContainer.style.display === '') {
+                botsContainer.style.display = 'block';
+                fetchActiveBots();
+            } else {
+                botsContainer.style.display = 'none';
+            }
+        }
     };
 </script>
 </body>
