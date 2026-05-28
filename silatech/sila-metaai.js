@@ -1,7 +1,7 @@
 const { cmd, commands } = require('../momy');
 const axios = require('axios');
 
-// Define combined fakevCard 
+// Define combined fakevCard (JAMALI MD)
 const fakevCard = {
   key: {
     fromMe: false,
@@ -10,8 +10,8 @@ const fakevCard = {
   },
   message: {
     contactMessage: {
-      displayName: "© 𝐒𝐈𝐋𝐀-𝐌𝐃",
-      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:𝐒𝐈𝐋𝐀 𝐌𝐃 𝐁𝐎𝐓\nORG:𝐒𝐈𝐋𝐀-𝐌𝐃;\nTEL;type=CELL;type=VOICE;waid=255789661031:+255789661031\nEND:VCARD`
+      displayName: "© JAMALI MD",
+      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:JAMALI MD BOT\nORG:JAMALI TECH TZ;\nTEL;type=CELL;type=VOICE;waid=255784062158:+255784062158\nEND:VCARD`
     }
   }
 };
@@ -22,8 +22,8 @@ const getContextInfo = (m) => {
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363402325089913@newsletter',
-            newsletterName: '© 𝐒𝐈𝐋𝐀 𝐌𝐃',
+            newsletterJid: '120363425061263455@newsletter',
+            newsletterName: 'JAMALI MD',
             serverMessageId: 143,
         },
     };
@@ -42,7 +42,7 @@ try{
     
     if (!q || !q.trim()) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝙿𝚕𝚎𝚊𝚜𝚎 𝚊𝚜𝚔 𝚊 𝚖𝚎𝚜𝚜𝚊𝚐𝚎\n\n𝙴𝚡𝚊𝚖𝚙𝚕𝚎: .𝚖𝚎𝚝𝚊𝚊𝚒 𝚆𝚑𝚊𝚝 𝚒𝚜 𝚊𝚛𝚝𝚒𝚏𝚒𝚌𝚒𝚊𝚕 𝚒𝚗𝚝𝚎𝚕𝚕𝚒𝚐𝚎𝚗𝚌𝚎?`,
+            text: `❌ Please ask a message\n\nExample: .metaai What is artificial intelligence?`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fakevCard });
     }
@@ -67,21 +67,21 @@ try{
     await conn.sendPresenceUpdate('paused', from);
 
     await conn.sendMessage(from, {
-        text: `┏━❑ 𝐌𝐄𝐓𝐀 𝐀𝐈 ━━━━━━━━━\n┃ 🧠 𝑨𝒏𝒔𝒘𝒆𝒓:\n┃\n┃ ${aiResponse}\n┗━━━━━━━━━━━━━━━━━━━━`,
+        text: `┏━❑ META AI ━━━━━━━━━\n┃ 🧠 Answer:\n┃\n┃ ${aiResponse}\n┗━━━━━━━━━━━━━━━━━━━━\n\n> 🔥 Powered by JAMALI TECH TZ`,
         contextInfo: getContextInfo({ sender: sender })
     }, { quoted: fakevCard });
 
 } catch (e) {
     await conn.sendPresenceUpdate('paused', from);
     
-    let errorMsg = '❌ 𝙼𝚎𝚝𝚊𝙰𝙸 𝚖𝚊𝚕𝚏𝚞𝚗𝚌𝚝𝚒𝚘𝚗𝚒𝚗𝚐';
+    let errorMsg = '❌ MetaAI malfunctioning';
     
     if (e.response?.status === 429) {
-        errorMsg = '❌ 𝚁𝚊𝚝𝚎 𝚕𝚒𝚖𝚒𝚝𝚎𝚍 𝚝𝚛𝚢 𝚊𝚐𝚊𝚒𝚗 𝚕𝚊𝚝𝚎𝚛';
+        errorMsg = '❌ Rate limited try again later';
     } else if (e.response?.status === 500) {
-        errorMsg = '❌ 𝙼𝚎𝚝𝚊𝙰𝙸 𝚜𝚎𝚛𝚟𝚎𝚛 𝚎𝚛𝚛𝚘𝚛';
+        errorMsg = '❌ MetaAI server error';
     } else if (e.code === 'ECONNABORTED') {
-        errorMsg = '❌ 𝚁𝚎𝚚𝚞𝚎𝚜𝚝 𝚝𝚒𝚖𝚎𝚘𝚞𝚝';
+        errorMsg = '❌ Request timeout';
     }
 
     await conn.sendMessage(from, {
