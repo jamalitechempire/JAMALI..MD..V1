@@ -74,13 +74,13 @@ cmd({
         }
 
         // Send response
-        let response = `╭━━【 🆔 𝙹𝙸𝙳 𝙸𝙽𝙵𝙾 】━━━━╮
-│ 📛 𝙽𝚊𝚖𝚎: ${targetName}
-│ 🔤 𝚃𝚢𝚙𝚎: ${targetType}
-│ 🆔 𝙹𝙸𝙳: ${targetJid}
+        let response = `╭━━【 🆔 JID INFO 】━━━━╮
+│ 📛 Name: ${targetName}
+│ 🔤 Type: ${targetType}
+│ 🆔 JID: ${targetJid}
 ╰━━━━━━━━━━━━━━━━━━╯
 
-> 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+> 🔥 Powered by JAMALI TECH TZ`;
 
         await conn.sendMessage(from, {
             text: response
@@ -91,7 +91,7 @@ cmd({
 
     } catch (error) {
         console.error("JID error:", error);
-        reply("*error getting jid information*");
+        reply("*Error getting JID information*");
         await m.react("❌");
     }
 });
