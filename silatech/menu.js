@@ -35,7 +35,7 @@ async (conn, mek, m, { from, reply, sender, myquoted }) => {
     const mode = config.WORK_TYPE?.toUpperCase() || "PUBLIC";
 
     // Menu Header
-    let menu = `╭━━【 💀 𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 】━━━━╮
+    let menu = `╭━━【 ⚡ JAMALI MD 】━━━━╮
 │ 👤 user: @${sender.split("@")[0]}
 │ ⚙️ mode: ${mode}
 │ ⌨️ prefix: ${prefix}
@@ -86,19 +86,19 @@ async (conn, mek, m, { from, reply, sender, myquoted }) => {
     }
 
     // Footer
-    menu += `\n> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+    menu += `\n> 🔥 Powered by JAMALI TECH TZ`;
 
     // Send the Menu with image and context info
     await conn.sendMessage(from, {
-      image: { url: 'https://files.catbox.moe/natk49.jpg' },
+      image: { url: 'https://files.catbox.moe/0e3rok.jpg' },
       caption: menu,
       contextInfo: {
         mentionedJid: [sender],
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363402325089913@newsletter',
-          newsletterName: 'MOMY-KIDY',
+          newsletterJid: '120363425061263455@newsletter',
+          newsletterName: 'JAMALI MD',
           serverMessageId: 13
         }
       }
