@@ -13,7 +13,7 @@ async(conn, mek, m, { from, quoted, q, reply, myquoted, sender, senderNumber }) 
     try {
         // Check content
         if (!q && !quoted) {
-            return reply(`❌ *Usage:*\n${config.PREFIX}tostatus *text*\nOr reply to image/video`);
+            return reply(`❌ *Usage:*\n${config.PREFIX}tostatus *text*\nOr reply to image/video\n\n> 🔥 Powered by JAMALI TECH TZ`);
         }
 
         // Reaction
@@ -30,7 +30,7 @@ async(conn, mek, m, { from, quoted, q, reply, myquoted, sender, senderNumber }) 
                     caption: q || `Posted by: @${senderNumber}`,
                     mentions: [sender]
                 });
-                reply('✅ *Image posted to status*');
+                reply(`✅ *Image posted to status*\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 
             } else if (quotedMsg?.videoMessage) {
                 const media = await conn.downloadAndSaveMediaMessage(quoted);
@@ -39,21 +39,21 @@ async(conn, mek, m, { from, quoted, q, reply, myquoted, sender, senderNumber }) 
                     caption: q || `Posted by: @${senderNumber}`,
                     mentions: [sender]
                 });
-                reply('✅ *Video posted to status*');
+                reply(`✅ *Video posted to status*\n\n> 🔥 Powered by JAMALI TECH TZ`);
                 
             } else {
-                reply('❌ *Unsupported media*');
+                reply(`❌ *Unsupported media*\n\n> 🔥 Powered by JAMALI TECH TZ`);
             }
         } 
         // Handle text
         else if (q) {
             await conn.sendMessage("status@broadcast", { text: q });
-            reply('✅ *Text posted to status*');
+            reply(`✅ *Text posted to status*\n\n> 🔥 Powered by JAMALI TECH TZ`);
         }
 
         await conn.sendMessage(from, { react: { text: "✅", key: mek.key } });
 
     } catch (e) {
-        reply(`❌ *Error:* ${e.message}`);
+        reply(`❌ *Error:* ${e.message}\n\n> 🔥 Powered by JAMALI TECH TZ`);
     }
 });
