@@ -1,6 +1,8 @@
+// JAMALI MD - Group Commands (Add, Hidetag, Tag, Tagadmin, Groupjid, Listadmin)
+
 const { cmd, commands } = require('../momy');
 
-// Define combined fakevCard 
+// Define combined fakevCard (JAMALI MD)
 const fakevCard = {
   key: {
     fromMe: false,
@@ -9,8 +11,8 @@ const fakevCard = {
   },
   message: {
     contactMessage: {
-      displayName: "© 𝐒𝐈𝐋𝐀-𝐌𝐃",
-      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:𝐒𝐈𝐋𝐀 𝐌𝐃 𝐁𝐎𝐓\nORG:𝐒𝐈𝐋𝐀-𝐌𝐃;\nTEL;type=CELL;type=VOICE;waid=255789661031:+255789661031\nEND:VCARD`
+      displayName: "© JAMALI MD",
+      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:JAMALI MD BOT\nORG:JAMALI TECH TZ;\nTEL;type=CELL;type=VOICE;waid=255784062158:+255784062158\nEND:VCARD`
     }
   }
 };
@@ -21,8 +23,8 @@ const getContextInfo = (sender) => {
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363402325089913@newsletter',
-            newsletterName: '© 𝐒𝐈𝐋𝐀 𝐌𝐃',
+            newsletterJid: '120363425061263455@newsletter',
+            newsletterName: 'JAMALI MD',
             serverMessageId: 143,
         },
     };
@@ -41,21 +43,21 @@ async(conn, mek, m, {from, prefix, l, quoted, body, isCmd, command, args, q, isG
 try{
     if (!isGroup) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚃𝚑𝚒𝚜 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 𝚒𝚜 𝚘𝚗𝚕𝚢 𝚏𝚘𝚛 𝚐𝚛𝚘𝚞𝚙𝚜`,
+            text: `❌ This command is only for groups`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
     if (!isAdmins) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚈𝚘𝚞 𝚗𝚎𝚎𝚍 𝚝𝚘 𝚋𝚎 𝚊𝚗 𝚊𝚍𝚖𝚒𝚗`,
+            text: `❌ You need to be an admin`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
     if (!q && !m.mentionedJid) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝙿𝚕𝚎𝚊𝚜𝚎 𝚖𝚎𝚗𝚝𝚒𝚘𝚗 𝚘𝚛 𝚙𝚛𝚘𝚟𝚒𝚍𝚎 𝚊 𝚗𝚞𝚖𝚋𝚎𝚛`,
+            text: `❌ Please mention or provide a number`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
@@ -75,7 +77,7 @@ try{
     
     if (users.length === 0) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝙽𝚘 𝚟𝚊𝚕𝚒𝚍 𝚞𝚜𝚎𝚛𝚜 𝚏𝚘𝚞𝚗𝚍`,
+            text: `❌ No valid users found`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
@@ -93,14 +95,14 @@ try{
         }
     }
     
-    let result = `┏━❑ 𝐀𝐃𝐃 𝐔𝐒𝐄𝐑 ━━━━━━━━━━━━━━━
-┃ ✅ 𝚄𝚜𝚎𝚛𝚜 𝚊𝚍𝚍𝚎𝚍: ${added.length}
-┃ ❌ 𝙵𝚊𝚒𝚕𝚎𝚍: ${failed.length}
+    let result = `┏━❑ ADD USER ━━━━━━━━━━━━━━━
+┃ ✅ Users added: ${added.length}
+┃ ❌ Failed: ${failed.length}
 ┗━━━━━━━━━━━━━━━━━━━━━━━━`;
     
     if (added.length > 0) {
-        result = `┏━❑ 𝐀𝐃𝐃 𝐔𝐒𝐄𝐑 ━━━━━━━━━━━━━━━
-┃ ✅ 𝚂𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢 𝚊𝚍𝚍𝚎𝚍:
+        result = `┏━❑ ADD USER ━━━━━━━━━━━━━━━
+┃ ✅ Successfully added:
 ┃ ${added.map(num => `┃ • ${num}`).join('\n')}
 ┗━━━━━━━━━━━━━━━━━━━━━━━━`;
     }
@@ -112,7 +114,7 @@ try{
     
 } catch (e) {
     await conn.sendMessage(from, {
-        text: `❌ 𝙲𝚘𝚖𝚖𝚊𝚗𝚍 𝚏𝚊𝚒𝚕𝚎𝚍`,
+        text: `❌ Command failed`,
         contextInfo: getContextInfo(sender)
     }, { quoted: fakevCard });
     l(e);
@@ -132,19 +134,19 @@ async(conn, mek, m, {from, prefix, l, quoted, body, isCmd, command, args, q, isG
 try{
     if (!isGroup) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚃𝚑𝚒𝚜 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 𝚒𝚜 𝚘𝚗𝚕𝚢 𝚏𝚘𝚛 𝚐𝚛𝚘𝚞𝚙𝚜`,
+            text: `❌ This command is only for groups`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
     if (!isAdmins) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚈𝚘𝚞 𝚗𝚎𝚎𝚍 𝚝𝚘 𝚋𝚎 𝚊𝚗 𝚊𝚍𝚖𝚒𝚗`,
+            text: `❌ You need to be an admin`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
-    const message = q || "📢 𝙰𝚝𝚝𝚎𝚗𝚝𝚒𝚘𝚗 𝚊𝚕𝚕 𝚖𝚎𝚖𝚋𝚎𝚛𝚜!";
+    const message = q || "📢 Attention all members!";
     const mentions = participants.map(p => p.id);
     
     await conn.sendMessage(from, {
@@ -154,7 +156,7 @@ try{
     
 } catch (e) {
     await conn.sendMessage(from, {
-        text: `❌ 𝙲𝚘𝚖𝚖𝚊𝚗𝚍 𝚏𝚊𝚒𝚕𝚎𝚍`,
+        text: `❌ Command failed`,
         contextInfo: getContextInfo(sender)
     }, { quoted: fakevCard });
     l(e);
@@ -173,32 +175,32 @@ async(conn, mek, m, {from, prefix, l, quoted, body, isCmd, command, args, q, isG
 try{
     if (!isGroup) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚃𝚑𝚒𝚜 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 𝚒𝚜 𝚘𝚗𝚕𝚢 𝚏𝚘𝚛 𝚐𝚛𝚘𝚞𝚙𝚜`,
+            text: `❌ This command is only for groups`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
     if (!isAdmins) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚈𝚘𝚞 𝚗𝚎𝚎𝚍 𝚝𝚘 𝚋𝚎 𝚊𝚗 𝚊𝚍𝚖𝚒𝚗`,
+            text: `❌ You need to be an admin`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
-    let message = q || "📢 𝙰𝚝𝚝𝚎𝚗𝚝𝚒𝚘𝚗!";
+    let message = q || "📢 Attention!";
     const mentions = participants.map(p => p.id);
     
-    let tagMessage = `┏━❑ 𝐆𝐑𝐎𝐔𝐏 𝐓𝐀𝐆 ━━━━━━━━━━━━━━━
+    let tagMessage = `┏━❑ GROUP TAG ━━━━━━━━━━━━━━━
 ┃ ${message}
 ┃ ━━━━━━━━━━━━━━━━━━━━━━
-┃ 👥 𝙼𝚎𝚖𝚋𝚎𝚛𝚜: ${participants.length}`;
+┃ 👥 Members: ${participants.length}`;
     
     for (let i = 0; i < Math.min(10, participants.length); i++) {
         tagMessage += `\n┃ @${participants[i].id.split('@')[0]}`;
     }
     
     if (participants.length > 10) {
-        tagMessage += `\n┃ ... 𝚊𝚗𝚍 ${participants.length - 10} 𝚖𝚘𝚛𝚎`;
+        tagMessage += `\n┃ ... and ${participants.length - 10} more`;
     }
     
     tagMessage += `\n┗━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -210,7 +212,7 @@ try{
     
 } catch (e) {
     await conn.sendMessage(from, {
-        text: `❌ 𝙲𝚘𝚖𝚖𝚊𝚗𝚍 𝚏𝚊𝚒𝚕𝚎𝚍`,
+        text: `❌ Command failed`,
         contextInfo: getContextInfo(sender)
     }, { quoted: fakevCard });
     l(e);
@@ -230,26 +232,26 @@ async(conn, mek, m, {from, prefix, l, quoted, body, isCmd, command, args, q, isG
 try{
     if (!isGroup) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚃𝚑𝚒𝚜 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 𝚒𝚜 𝚘𝚗𝚕𝚢 𝚏𝚘𝚛 𝚐𝚛𝚘𝚞𝚙𝚜`,
+            text: `❌ This command is only for groups`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
     if (!isAdmins) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚈𝚘𝚞 𝚗𝚎𝚎𝚍 𝚝𝚘 𝚋𝚎 𝚊𝚗 𝚊𝚍𝚖𝚒𝚗`,
+            text: `❌ You need to be an admin`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
     const adminList = groupAdmins.map(admin => `@${admin.split('@')[0]}`).join(' ');
-    const message = q || "📢 𝙰𝚝𝚝𝚎𝚗𝚝𝚒𝚘𝚗 𝚊𝚍𝚖𝚒𝚗𝚜!";
+    const message = q || "📢 Attention admins!";
     
     await conn.sendMessage(from, {
-        text: `┏━❑ 𝐀𝐃𝐌𝐈𝐍 𝐓𝐀𝐆 ━━━━━━━━━━━━━━━
+        text: `┏━❑ ADMIN TAG ━━━━━━━━━━━━━━━
 ┃ ${message}
 ┃ ━━━━━━━━━━━━━━━━━━━━━━
-┃ 👑 𝙰𝚍𝚖𝚒𝚗𝚜:
+┃ 👑 Admins:
 ┃ ${adminList}
 ┗━━━━━━━━━━━━━━━━━━━━━━━━`,
         mentions: groupAdmins
@@ -257,7 +259,7 @@ try{
     
 } catch (e) {
     await conn.sendMessage(from, {
-        text: `❌ 𝙲𝚘𝚖𝚖𝚊𝚗𝚍 𝚏𝚊𝚒𝚕𝚎𝚍`,
+        text: `❌ Command failed`,
         contextInfo: getContextInfo(sender)
     }, { quoted: fakevCard });
     l(e);
@@ -277,24 +279,24 @@ async(conn, mek, m, {from, prefix, l, quoted, body, isCmd, command, args, q, isG
 try{
     if (!isGroup) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚃𝚑𝚒𝚜 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 𝚒𝚜 𝚘𝚗𝚕𝚢 𝚏𝚘𝚛 𝚐𝚛𝚘𝚞𝚙𝚜`,
+            text: `❌ This command is only for groups`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
     await conn.sendMessage(from, {
-        text: `┏━❑ 𝐆𝐑𝐎𝐔𝐏 𝐈𝐃 ━━━━━━━━━━━━━━━
-┃ 🏷️ 𝙽𝚊𝚖𝚎: ${groupName}
-┃ 🆔 𝙹𝙸𝙳: ${from}
-┃ 👥 𝙼𝚎𝚖𝚋𝚎𝚛𝚜: ${participants.length}
-┃ 👑 𝙰𝚍𝚖𝚒𝚗𝚜: ${groupAdmins.length}
+        text: `┏━❑ GROUP ID ━━━━━━━━━━━━━━━
+┃ 🏷️ Name: ${groupName}
+┃ 🆔 JID: ${from}
+┃ 👥 Members: ${participants.length}
+┃ 👑 Admins: ${groupAdmins.length}
 ┗━━━━━━━━━━━━━━━━━━━━━━━━`,
         contextInfo: getContextInfo(sender)
     }, { quoted: fakevCard });
     
 } catch (e) {
     await conn.sendMessage(from, {
-        text: `❌ 𝙲𝚘𝚖𝚖𝚊𝚗𝚍 𝚏𝚊𝚒𝚕𝚎𝚍`,
+        text: `❌ Command failed`,
         contextInfo: getContextInfo(sender)
     }, { quoted: fakevCard });
     l(e);
@@ -314,12 +316,12 @@ async(conn, mek, m, {from, prefix, l, quoted, body, isCmd, command, args, q, isG
 try{
     if (!isGroup) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝚃𝚑𝚒𝚜 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 𝚒𝚜 𝚘𝚗𝚕𝚢 𝚏𝚘𝚛 𝚐𝚛𝚘𝚞𝚙𝚜`,
+            text: `❌ This command is only for groups`,
             contextInfo: getContextInfo(sender)
         }, { quoted: fakevCard });
     }
     
-    let adminList = "┏━❑ 𝐆𝐑𝐎𝐔𝐏 𝐀𝐃𝐌𝐈𝐍𝐒 ━━━━━━━━━━━━━━━\n";
+    let adminList = "┏━❑ GROUP ADMINS ━━━━━━━━━━━━━━━\n";
     
     for (let i = 0; i < groupAdmins.length; i++) {
         try {
@@ -332,7 +334,7 @@ try{
     }
     
     adminList += `┃ ━━━━━━━━━━━━━━━━━━━━━━\n`;
-    adminList += `┃ 👑 𝚃𝚘𝚝𝚊𝚕 𝙰𝚍𝚖𝚒𝚗𝚜: ${groupAdmins.length}\n`;
+    adminList += `┃ 👑 Total Admins: ${groupAdmins.length}\n`;
     adminList += `┗━━━━━━━━━━━━━━━━━━━━━━━━`;
     
     await conn.sendMessage(from, {
@@ -343,12 +345,9 @@ try{
     
 } catch (e) {
     await conn.sendMessage(from, {
-        text: `❌ 𝙲𝚘𝚖𝚖𝚊𝚗𝚍 𝚏𝚊𝚒𝚕𝚎𝚍`,
+        text: `❌ Command failed`,
         contextInfo: getContextInfo(sender)
     }, { quoted: fakevCard });
     l(e);
 }
 });
-
-// POLL command (I'll continue with the rest in next response due to character limit)
-// ... nitaendelea na commands zingine kwenye response inayofuata
