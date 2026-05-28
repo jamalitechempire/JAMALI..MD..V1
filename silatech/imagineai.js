@@ -15,7 +15,7 @@ cmd({
 },
 async(conn, mek, m, { from, q, reply }) => {
     try {
-        if (!q) return reply(`❌ 𝙿𝚕𝚎𝚊𝚜𝚎 𝚙𝚛𝚘𝚟𝚒𝚍𝚎 𝚊 𝚝𝚎𝚡𝚝 𝚙𝚛𝚘𝚖𝚙𝚝\n\n𝙴𝚡𝚊𝚖𝚙𝚕𝚎: .𝚝𝚡𝚝𝟸𝚟𝚒𝚍 𝙲𝚊𝚝 𝚜𝚊𝚢𝚒𝚗𝚐 𝙷𝚎𝚕𝚕𝚘`);
+        if (!q) return reply(`❌ Please provide a text prompt\n\nExample: .veo3 Cat saying Hello`);
 
         await conn.sendPresenceUpdate('composing', from);
         
@@ -34,11 +34,11 @@ async(conn, mek, m, { from, q, reply }) => {
         // Send as video
         await conn.sendMessage(from, {
             video: Buffer.from(response.data),
-            caption: `━━━━━━━━━━━━━━━━━━━━━━\n    𝚃𝚇𝚃𝟸𝚅𝙸𝙳 𝙶𝙴𝙽𝙴𝚁𝙰𝚃𝙴𝙳    \n━━━━━━━━━━━━━━━━━━━━━━\n\n𝙿𝚛𝚘𝚖𝚙𝚝: ${q}\n━━━━━━━━━━━━━━━━━━━━━━`
+            caption: `━━━━━━━━━━━━━━━━━━━━━━\n    JAMALI MD - TXT2VID    \n━━━━━━━━━━━━━━━━━━━━━━\n\nPrompt: ${q}\n━━━━━━━━━━━━━━━━━━━━━━\n> 🔥 Powered by JAMALI TECH TZ`
         });
         
     } catch (e) {
-        reply(`❌ 𝙴𝚛𝚛𝚘𝚛: ${e.message}\n\n𝙽𝚘𝚝𝚎: 𝙰𝙿𝙸 𝚖𝚊𝚢 𝚋𝚎 𝚞𝚗𝚊𝚟𝚊𝚒𝚕𝚊𝚋𝚕𝚎`);
+        reply(`❌ Error: ${e.message}\n\nNote: API may be unavailable`);
     }
 });
 
@@ -52,7 +52,7 @@ cmd({
 },
 async(conn, mek, m, { from, q, reply }) => {
     try {
-        if (!q) return reply(`❌ 𝙿𝚕𝚎𝚊𝚜𝚎 𝚙𝚛𝚘𝚟𝚒𝚍𝚎 𝚊 𝚝𝚎𝚡𝚝 𝚙𝚛𝚘𝚖𝚙𝚝\n\n𝙴𝚡𝚊𝚖𝚙𝚕𝚎: .𝚒𝚖𝚊𝚐𝚎𝚗𝟺 𝙲𝚊𝚝 𝚜𝚊𝚢𝚒𝚗𝚐 𝚂𝙸𝙻𝙰 𝙼𝙳`);
+        if (!q) return reply(`❌ Please provide a text prompt\n\nExample: .imagen4 Cat saying JAMALI MD`);
 
         await conn.sendPresenceUpdate('composing', from);
         
@@ -69,11 +69,11 @@ async(conn, mek, m, { from, q, reply }) => {
         
         await conn.sendMessage(from, {
             image: Buffer.from(response.data),
-            caption: `━━━━━━━━━━━━━━━━━━━━━━\n    𝙸𝙼𝙰𝙶𝙴𝙽-𝟺 𝙶𝙴𝙽𝙴𝚁𝙰𝚃𝙴𝙳    \n━━━━━━━━━━━━━━━━━━━━━━\n\n𝙿𝚛𝚘𝚖𝚙𝚝: ${q}\n━━━━━━━━━━━━━━━━━━━━━━`
+            caption: `━━━━━━━━━━━━━━━━━━━━━━\n    JAMALI MD - IMAGEN-4    \n━━━━━━━━━━━━━━━━━━━━━━\n\nPrompt: ${q}\n━━━━━━━━━━━━━━━━━━━━━━\n> 🔥 Powered by JAMALI TECH TZ`
         });
         
     } catch (e) {
-        reply(`❌ 𝙴𝚛𝚛𝚘𝚛: ${e.message}\n\n𝙽𝚘𝚝𝚎: 𝙰𝙿𝙸 𝚖𝚊𝚢 𝚋𝚎 𝚞𝚗𝚊𝚟𝚊𝚒𝚕𝚊𝚋𝚕𝚎`);
+        reply(`❌ Error: ${e.message}\n\nNote: API may be unavailable`);
     }
 });
 
@@ -94,15 +94,13 @@ async(conn, mek, m, { from, q, reply, quoted }) => {
             // Try to get image from quoted message
             const quotedMsg = mek.message?.extendedTextMessage?.contextInfo?.quotedMessage;
             if (quotedMsg?.imageMessage) {
-                const media = await conn.downloadAndSaveMediaMessage(quoted);
-                // Upload to temporary hosting or use direct URL approach
-                reply(`❌ 𝙿𝚕𝚎𝚊𝚜𝚎 𝚙𝚛𝚘𝚟𝚒𝚍𝚎 𝚊 𝚍𝚒𝚛𝚎𝚌𝚝 𝚒𝚖𝚊𝚐𝚎 𝚄𝚁𝙻 𝚏𝚘𝚛 𝚗𝚘𝚠`);
+                reply(`❌ Please provide a direct image URL for now`);
                 return;
             }
         }
         
         if (!imageUrl) {
-            return reply(`❌ 𝙿𝚕𝚎𝚊𝚜𝚎 𝚙𝚛𝚘𝚟𝚒𝚍𝚎 𝚊𝚗 𝚒𝚖𝚊𝚐𝚎 𝚄𝚁𝙻\n\n𝙴𝚡𝚊𝚖𝚙𝚕𝚎: .𝚒𝚖𝚐𝟸𝚙𝚛𝚘𝚖𝚙𝚝 https://files.catbox.moe/98k75b.jpeg`);
+            return reply(`❌ Please provide an image URL\n\nExample: .img2prompt https://files.catbox.moe/98k75b.jpeg`);
         }
 
         await conn.sendPresenceUpdate('composing', from);
@@ -116,36 +114,36 @@ async(conn, mek, m, { from, q, reply, quoted }) => {
         const data = response.data.data;
         
         let message = `━━━━━━━━━━━━━━━━━━━━━━\n`;
-        message += `    𝙸𝙼𝙰𝙶𝙴 𝙿𝚁𝙾𝙼𝙿𝚃    \n`;
+        message += `    JAMALI MD - IMAGE PROMPT    \n`;
         message += `━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        message += `🖼️ *𝙾𝚛𝚒𝚐𝚒𝚗𝚊𝚕 𝚄𝚁𝙻:*\n${data.original_url}\n\n`;
-        message += `📝 *𝙶𝚎𝚗𝚎𝚛𝚊𝚝𝚎𝚍 𝙿𝚛𝚘𝚖𝚙𝚝:*\n${data.prompt}\n\n`;
+        message += `🖼️ *Original URL:*\n${data.original_url}\n\n`;
+        message += `📝 *Generated Prompt:*\n${data.prompt}\n\n`;
         message += `━━━━━━━━━━━━━━━━━━━━━━\n`;
-        message += `> 𝚄𝚜𝚎 𝚝𝚑𝚒𝚜 𝚙𝚛𝚘𝚖𝚙𝚝 𝚠𝚒𝚝𝚑 .𝚒𝚖𝚊𝚐𝚎𝚗𝟺`;
+        message += `> Use this prompt with .imagen4`;
         
         reply(message);
         
     } catch (e) {
-        reply(`❌ 𝙴𝚛𝚛𝚘𝚛: ${e.message}`);
+        reply(`❌ Error: ${e.message}`);
     }
 });
 
-// ===================== IMAGEN HELP =====================
+// ===================== AI HELP =====================
 cmd({
     pattern: "aihelp",
     alias: ["exsalhelp"],
     react: "❓",
-    desc: "Help for ExsalAI commands",
+    desc: "Help for JAMALI MD AI commands",
     category: "ai"
 },
 async(conn, mek, m, { from, reply }) => {
     const help = `━━━━━━━━━━━━━━━━━━━━━━
-    𝚂𝙸𝙻𝙰 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂    
+    JAMALI MD AI COMMANDS    
 ━━━━━━━━━━━━━━━━━━━━━━
 
-🎥 *.txt2vid <prompt>*
+🎥 *.veo3 <prompt>*
    Generate video from text
-   Ex: .txt2vid Cat dancing
+   Ex: .veo3 Cat dancing
 
 🖼️ *.imagen4 <prompt>*
    Generate image from text
@@ -156,7 +154,8 @@ async(conn, mek, m, { from, reply }) => {
    Ex: .img2prompt https://...
 
 ━━━━━━━━━━━━━━━━━━━━━━
-> 𝙽𝚘𝚝𝚎: 𝙰𝙿𝙸 𝚜𝚎𝚛𝚟𝚒𝚌𝚎 𝚖𝚊𝚢 𝚋𝚎 𝚞𝚗𝚜𝚝𝚊𝚋𝚕𝚎
+> Note: API service may be unstable
+> 🔥 Powered by JAMALI TECH TZ
 ━━━━━━━━━━━━━━━━━━━━━━`;
 
     reply(help);
