@@ -1,3 +1,5 @@
+// JAMALI MD - AI Image Generator
+
 const { cmd } = require('../momy');
 const axios = require('axios');
 
@@ -29,7 +31,7 @@ function enhancePrompt(prompt) {
 
 cmd({
     pattern: "imagine",
-    alias: ["flux", "aiimage", "silapic"],
+    alias: ["flux", "aiimage", "jamalipic"],
     desc: "generate AI image",
     category: "ai",
     react: "🎨",
@@ -39,11 +41,11 @@ cmd({
         const text = mek.message?.conversation || mek.message?.extendedTextMessage?.text || args.join(" ");
         
         if (!text || text.replace(/^\.(imagine|generate|aiimage|pic)\s+/i, "").trim().length === 0) {
-            return reply("*🎨 𝙰𝙸 𝙸𝙼𝙰𝙶𝙴 𝙶𝙴𝙽𝙴𝚁𝙰𝚃𝙾𝚁*\n\n*𝚄𝚂𝙰𝙶𝙴:* .imagine your_prompt\n*𝙴𝚇𝙰𝙼𝙿𝙻𝙴:* .imagine beautiful sunset over mountains\n*𝙴𝚇𝙰𝙼𝙿𝙻𝙴:* .imagine cat wearing sunglasses\n\n*𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡*");
+            return reply("*🎨 AI IMAGE GENERATOR*\n\n*USAGE:* .imagine your_prompt\n*EXAMPLE:* .imagine beautiful sunset over mountains\n*EXAMPLE:* .imagine cat wearing sunglasses\n\n> 🔥 Powered by JAMALI TECH TZ");
         }
 
         const prompt = text.replace(/^\.(imagine|generate|aiimage|pic)\s+/i, "").trim();
-        await reply("*🎨 𝙶𝚎𝚗𝚎𝚛𝚊𝚝𝚒𝚗𝚐 𝚒𝚖𝚊𝚐𝚎...*");
+        await reply("*🎨 Generating image...*");
 
         // Enhance the prompt with quality keywords
         const enhancedPrompt = enhancePrompt(prompt);
@@ -58,13 +60,13 @@ cmd({
         const imageBuffer = Buffer.from(response.data);
 
         // Send the generated image
-        const caption = `╭━━【 🎨 𝙰𝙸 𝙸𝙼𝙰𝙶𝙴 】━━━╮
-│ 📝 𝙿𝚛𝚘𝚖𝚙𝚝: ${prompt}
-│ 🎨 𝙰𝙸: 𝙼𝚒𝚍𝚓𝚘𝚞𝚛𝚗𝚎𝚢/𝚂𝚝𝚊𝚋𝚕𝚎 𝙳𝚒𝚏𝚏𝚞𝚜𝚒𝚘𝚗
-│ 📊 𝚀𝚞𝚊𝚕𝚒𝚝𝚢: 𝙷𝙳 (𝟺𝙺)
+        const caption = `╭━━【 🎨 JAMALI MD AI IMAGE 】━━━╮
+│ 📝 Prompt: ${prompt}
+│ 🎨 AI: Midjourney/Stable Diffusion
+│ 📊 Quality: HD (4K)
 ╰━━━━━━━━━━━━━━━━━━━╯
 
-> 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+> 🔥 Powered by JAMALI TECH TZ`;
 
         await conn.sendMessage(from, {
             image: imageBuffer,
@@ -77,11 +79,11 @@ cmd({
         console.error('Error in imagine command:', error);
         
         if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT') {
-            reply("*⏰ 𝚃𝚒𝚖𝚎𝚘𝚞𝚝 𝚎𝚛𝚛𝚘𝚛. 𝙸𝚖𝚊𝚐𝚎 𝚐𝚎𝚗𝚎𝚛𝚊𝚝𝚒𝚘𝚗 𝚝𝚘𝚘𝚔 𝚝𝚘𝚘 𝚕𝚘𝚗𝚐.*");
+            reply("*⏰ Timeout error. Image generation took too long.*\n\n> 🔥 Powered by JAMALI TECH TZ");
         } else if (error.response?.status === 429) {
-            reply("*🚫 𝚃𝚘𝚘 𝚖𝚊𝚗𝚢 𝚛𝚎𝚚𝚞𝚎𝚜𝚝𝚜. 𝙿𝚕𝚎𝚊𝚜𝚎 𝚝𝚛𝚢 𝚊𝚐𝚊𝚒𝚗 𝚕𝚊𝚝𝚎𝚛.*");
+            reply("*🚫 Too many requests. Please try again later.*\n\n> 🔥 Powered by JAMALI TECH TZ");
         } else {
-            reply("*❌ 𝙵𝚊𝚒𝚕𝚎𝚍 𝚝𝚘 𝚐𝚎𝚗𝚎𝚛𝚊𝚝𝚎 𝚒𝚖𝚊𝚐𝚎. 𝙿𝚕𝚎𝚊𝚜𝚎 𝚝𝚛𝚢 𝚊𝚐𝚊𝚒𝚗 𝚕𝚊𝚝𝚎𝚛.*");
+            reply("*❌ Failed to generate image. Please try again later.*\n\n> 🔥 Powered by JAMALI TECH TZ");
         }
         
         await m.react("❌");
