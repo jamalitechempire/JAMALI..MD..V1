@@ -1,1 +1,82 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAMALI MD | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#0a0c14;font-family:'Inter',sans-serif;color:#fff;padding:20px}
+        .container{max-width:1200px;margin:0 auto}
+        .header{background:#0f1222;border-radius:24px;padding:20px;margin-bottom:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:30px}
+        .stat-card{background:#0f1222;border-radius:24px;padding:20px;text-align:center;border:1px solid #1f2330}
+        .stat-value{font-size:2.5rem;color:#00f6ff;font-weight:700}
+        .card{background:#121520;border-radius:24px;padding:20px;border:1px solid #1f2330}
+        table{width:100%;border-collapse:collapse}
+        th,td{padding:12px;text-align:left;border-bottom:1px solid #1f2330}
+        th{color:#00f6ff}
+        .btn-outline{background:transparent;border:1px solid #00f6ff;border-radius:40px;padding:6px 15px;color:#00f6ff;cursor:pointer}
+        @media(max-width:600px){.stats{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h2><i class="fas fa-bolt"></i> JAMALI MD</h2>
+        <div><i class="fas fa-user"></i> User Dashboard</div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="card">
+        <h3><i class="fas fa-server"></i> Your Active Bots</h3>
+        <div style="overflow-x:auto; margin-top:15px">
+            <table id="sessionsTable">
+                <thead><tr><th>Number</th><th>Status</th><th>Uptime</th><th>Action</th></tr></thead>
+                <tbody id="sessionsBody"><tr><td colspan="4">Loading...</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    async function load() {
+        try {
+            let res = await fetch('/active');
+            let data = await res.json();
+            let sessions = data.numbers || [];
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-card"><div class="stat-value">${sessions.length}</div><div>My Bots</div></div>
+                <div class="stat-card"><div class="stat-value">${sessions.length}</div><div>Active</div></div>
+            `;
+            let tbody = document.getElementById('sessionsBody');
+            if(sessions.length===0){
+                tbody.innerHTML = '<tr><td colspan="4">No active bots. Use Pair Device.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = '';
+            for(let num of sessions){
+                let statusRes = await fetch(`/status?number=${num}`);
+                let statusData = await statusRes.json();
+                let uptime = (statusData.uptime||0)+'s';
+                let row = `<tr>
+                    <td>${num}</td>
+                    <td><span style="color:#0f0">● ONLINE</span></td>
+                    <td>${uptime}</td>
+                    <td><button class="btn-outline" onclick="disconnect('${num}')">Disconnect</button></td>
+                </tr>`;
+                tbody.innerHTML += row;
+            }
+        } catch(e){ console.error(e); }
+    }
+    window.disconnect = async (num) => {
+        if(confirm(`Disconnect bot for ${num}?`)){
+            await fetch(`/disconnect?number=${num}`);
+            load();
+        }
+    };
+    load();
+    setInterval(load, 15000);
+</script>
+</body>
+</html>
