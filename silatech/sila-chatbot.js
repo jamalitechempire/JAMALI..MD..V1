@@ -1,14 +1,15 @@
+// JAMALI MD - Chatbot Control & Auto AI Reply
+
 const { cmd } = require('../momy');
 const axios = require('axios');
 
-
-// State storage kwa kuhifadhi hali ya chatbot
+// State storage for chatbot settings
 let chatbotState = {
     enabled: true,
     mode: 'both' // 'both', 'group', 'inbox'
 };
 
-// Define combined fakevCard 
+// Define combined fakevCard (JAMALI MD)
 const fakevCard = {
   key: {
     fromMe: false,
@@ -17,8 +18,8 @@ const fakevCard = {
   },
   message: {
     contactMessage: {
-      displayName: "© 𝐒𝐈𝐋𝐀-𝐌𝐃",
-      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:𝐒𝐈𝐋𝐀 𝐌𝐃 𝐁𝐎𝐓\nORG:𝐒𝐈𝐋𝐀-𝐌𝐃;\nTEL;type=CELL;type=VOICE;waid=255789661031:+255789661031\nEND:VCARD`
+      displayName: "© JAMALI MD",
+      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:JAMALI MD BOT\nORG:JAMALI TECH TZ;\nTEL;type=CELL;type=VOICE;waid=255784062158:+255784062158\nEND:VCARD`
     }
   }
 };
@@ -29,8 +30,8 @@ const getContextInfo = (m) => {
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363402325089913@newsletter',
-            newsletterName: '© 𝐒𝐈𝐋𝐀 𝐌𝐃',
+            newsletterJid: '120363425061263455@newsletter',
+            newsletterName: 'JAMALI MD',
             serverMessageId: 143,
         },
     };
@@ -48,17 +49,19 @@ async(conn, mek, m, {from, prefix, l, quoted, body, isCmd, command, args, q, isG
 try{
     if (!args[0]) {
         return await conn.sendMessage(from, {
-            text: `┏━❑ 𝐂𝐇𝐀𝐓𝐁𝐎𝐓 𝐒𝐄𝐓𝐓𝐈𝐍𝐆𝐒 ━━━━━━━━
+            text: `┏━❑ CHATBOT SETTINGS ━━━━━━━━
 ┃ 🟢 Status: ${chatbotState.enabled ? 'ON' : 'OFF'}
 ┃ 🌐 Mode: ${chatbotState.mode.toUpperCase()}
 ┃ ━━━━━━━━━━━━━━━━━━━━━━
-┃ 𝐔𝐬𝐚𝐠𝐞:
+┃ Usage:
 ┃ • ${prefix}chatbot on - Enable chatbot
 ┃ • ${prefix}chatbot off - Disable chatbot
 ┃ • ${prefix}chatbot group - Groups only
 ┃ • ${prefix}chatbot inbox - Inbox only
 ┃ • ${prefix}chatbot both - Groups & Inbox
-┗━━━━━━━━━━━━━━━━━━━━━━━━`,
+┗━━━━━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fakevCard });
     }
@@ -69,10 +72,12 @@ try{
         case 'on':
             chatbotState.enabled = true;
             await conn.sendMessage(from, {
-                text: `┏━❑ 𝐂𝐇𝐀𝐓𝐁𝐎𝐓 ━━━━━━━━━━━━━━━
+                text: `┏━❑ CHATBOT ━━━━━━━━━━━━━━━
 ┃ ✅ Chatbot has been ENABLED
 ┃ Mode: ${chatbotState.mode.toUpperCase()}
-┗━━━━━━━━━━━━━━━━━━━━━━━━`,
+┗━━━━━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fakevCard });
             break;
@@ -80,9 +85,11 @@ try{
         case 'off':
             chatbotState.enabled = false;
             await conn.sendMessage(from, {
-                text: `┏━❑ 𝐂𝐇𝐀𝐓𝐁𝐎𝐓 ━━━━━━━━━━━━━━━
+                text: `┏━❑ CHATBOT ━━━━━━━━━━━━━━━
 ┃ 🔴 Chatbot has been DISABLED
-┗━━━━━━━━━━━━━━━━━━━━━━━━`,
+┗━━━━━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fakevCard });
             break;
@@ -90,9 +97,11 @@ try{
         case 'group':
             chatbotState.mode = 'group';
             await conn.sendMessage(from, {
-                text: `┏━❑ 𝐂𝐇𝐀𝐓𝐁𝐎𝐓 ━━━━━━━━━━━━━━━
+                text: `┏━❑ CHATBOT ━━━━━━━━━━━━━━━
 ┃ 📱 Mode set to GROUPS ONLY
-┗━━━━━━━━━━━━━━━━━━━━━━━━`,
+┗━━━━━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fakevCard });
             break;
@@ -100,9 +109,11 @@ try{
         case 'inbox':
             chatbotState.mode = 'inbox';
             await conn.sendMessage(from, {
-                text: `┏━❑ 𝐂𝐇𝐀𝐓𝐁𝐎𝐓 ━━━━━━━━━━━━━━━
+                text: `┏━❑ CHATBOT ━━━━━━━━━━━━━━━
 ┃ 💬 Mode set to INBOX ONLY
-┗━━━━━━━━━━━━━━━━━━━━━━━━`,
+┗━━━━━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fakevCard });
             break;
@@ -110,54 +121,56 @@ try{
         case 'both':
             chatbotState.mode = 'both';
             await conn.sendMessage(from, {
-                text: `┏━❑ 𝐂𝐇𝐀𝐓𝐁𝐎𝐓 ━━━━━━━━━━━━━━━
+                text: `┏━❑ CHATBOT ━━━━━━━━━━━━━━━
 ┃ 🌐 Mode set to GROUPS & INBOX
-┗━━━━━━━━━━━━━━━━━━━━━━━━`,
+┗━━━━━━━━━━━━━━━━━━━━━━━━
+
+> 🔥 Powered by JAMALI TECH TZ`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fakevCard });
             break;
             
         default:
             await conn.sendMessage(from, {
-                text: `❌ Invalid option. Use:\n• on\n• off\n• group\n• inbox\n• both`,
+                text: `❌ Invalid option. Use:\n• on\n• off\n• group\n• inbox\n• both\n\n> 🔥 Powered by JAMALI TECH TZ`,
                 contextInfo: getContextInfo({ sender: sender })
             }, { quoted: fakevCard });
     }
     
 } catch (e) {
     await conn.sendMessage(from, {
-        text: `❌ Command failed`,
+        text: `❌ Command failed\n\n> 🔥 Powered by JAMALI TECH TZ`,
         contextInfo: getContextInfo({ sender: sender })
     }, { quoted: fakevCard });
     l(e);
 }
 });
 
-// Auto-reply handler kwa mazungumzo ya kawaida (sio command)
-// Huenda hii iwe katika main file yako au event handler
+// Auto-reply handler for normal conversation (not commands)
+// This should be placed in your main event handler
 module.exports.chatbotHandler = async (conn, message) => {
     try {
         const { from, body, isGroup, sender } = message;
         
-        // Angalia kama si command (haianzi na prefix)
+        // Check if not a command (doesn't start with prefix)
         if (body.startsWith('.')) return;
         
-        // Angalia kama chatbot imewashwa
+        // Check if chatbot is enabled
         if (!chatbotState.enabled) return;
         
-        // Angalia mode
+        // Check mode
         if (chatbotState.mode === 'group' && !isGroup) return;
         if (chatbotState.mode === 'inbox' && isGroup) return;
         
-        // Kata nafasi mbele na nyuma ya message
+        // Trim message
         const userMessage = body.trim();
         if (!userMessage) return;
         
-        // Toa baadhi ya maneno ambayo hatutaki kujibu
+        // Ignore certain words (links)
         const ignoreWords = ['http://', 'https://', 'www.', '.com', '.net', '.org'];
         if (ignoreWords.some(word => userMessage.toLowerCase().includes(word))) return;
         
-        // Piga API ya GPT
+        // Call GPT API
         const apiUrl = `https://api.yupra.my.id/api/ai/gpt5?text=${encodeURIComponent(userMessage)}`;
         const response = await fetch(apiUrl);
         
@@ -168,9 +181,9 @@ module.exports.chatbotHandler = async (conn, message) => {
         const data = await response.json();
         
         if (data && data.result) {
-            // Tuma reply kwa kawaida kama mtu anavyoandika
+            // Send reply normally
             await conn.sendMessage(from, { 
-                text: data.result 
+                text: data.result + '\n\n> 🔥 Powered by JAMALI TECH TZ'
             }, { 
                 quoted: message 
             });
@@ -178,9 +191,9 @@ module.exports.chatbotHandler = async (conn, message) => {
         
     } catch (error) {
         console.error('Chatbot error:', error);
-        // Usitumie error message kwa user, achia tu ikose
+        // Don't send error message to user
     }
 };
 
-// Export state kwa ajili ya ku-access kutoka files nyingine
+// Export state for access from other files
 module.exports.chatbotState = chatbotState;
