@@ -10,16 +10,16 @@ module.exports = {
     // ===========================================================
     // 1. BASIC CONFIGURATION (Session & Database)
     // ===========================================================
-    SESSION_ID: process.env.SESSION_ID || "MOMY-KIDY", 
+    SESSION_ID: process.env.SESSION_ID || "JAMALI-MD", 
     MONGODB_URI: process.env.MONGODB_URI || 'mongodb+srv://kxshrii:i7sgjXF6SO2cTJwU@kelumxz.zggub8h.mongodb.net/',
     
     // ===========================================================
     // 2. BOT INFORMATION
     // ===========================================================
     PREFIX: process.env.PREFIX || '.',
-    OWNER_NUMBER: process.env.OWNER_NUMBER || '255789661031',
-    BOT_NAME: "MOMY-KIDY",
-    BOT_FOOTER: '> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡',
+    OWNER_NUMBER: process.env.OWNER_NUMBER || '255784062158',
+    BOT_NAME: "JAMALI MD",
+    BOT_FOOTER: '> © 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐉𝐀𝐌𝐀𝐋𝐈 𝐓𝐄𝐂𝐇 𝐓𝐙',
     
     // Work mode: public, private, group, inbox
     WORK_TYPE: process.env.WORK_TYPE || "public", 
@@ -63,7 +63,7 @@ module.exports = {
     // Custom anti-link warning message
     ANTI_LINK_MSG: process.env.ANTI_LINK_MSG || '❌ *ANTI-LINK ACTIVATED*\n\n@{sender}, sending links is not allowed in this group!\n\n*Group:* {group}\n*Link Type:* {linkType}\n*Action:* Message Deleted',
     
-    GROUP_INVITE_LINK: process.env.GROUP_INVITE_LINK || 'https://chat.whatsapp.com/C0CWyj7RapP2vX7vNdUSTK',
+    GROUP_INVITE_LINK: process.env.GROUP_INVITE_LINK || 'https://chat.whatsapp.com/GPdlJ8ip88K39E5Hok7rJh',
     
     // ===========================================================
     // 6. SECURITY & ANTI-CALL
@@ -74,17 +74,16 @@ module.exports = {
     // ===========================================================
     // 7. IMAGES & LINKS
     // ===========================================================
-    IMAGE_PATH: 'https://files.catbox.moe/natk49.jpg',
-    CHANNEL_LINK: 'https://whatsapp.com/channel/0029VbBG4gfISTkCpKxyMH02',
-    GROUP_LINK_1: 'https://chat.whatsapp.com/IS276Wg9zcuCnJRiMDI64g',
-    GROUP_LINK_2: 'https://chat.whatsapp.com/C0CWyj7RapP2vX7vNdUSTK',
+    IMAGE_PATH: 'https://files.catbox.moe/0e3rok.jpg',
+    CHANNEL_LINK: 'https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h',
+    GROUP_LINK_1: 'https://chat.whatsapp.com/GPdlJ8ip88K39E5Hok7rJh',
+    GROUP_LINK_2: 'https://chat.whatsapp.com/GPdlJ8ip88K39E5Hok7rJh',
     
     // ===========================================================
     // 8. CHANNEL JIDS (NEWSLETTER/CHANNEL)
     // ===========================================================
-    CHANNEL_JID_1: '120363402325089913@newsletter',
-    CHANNEL_JID_2: '120363426725658598@newsletter',
-    
+    CHANNEL_JID_1: '120363425061263455@newsletter',
+    CHANNEL_JID_2: '120363425061263455@newsletter', // Same as user provided
     // Newsletter reaction settings
     NEWSLETTER_AUTO_FOLLOW: process.env.NEWSLETTER_AUTO_FOLLOW || 'true',
     NEWSLETTER_REACTION_EMOJIS: ['⚔️', '🔥', '⚡', '💀', '🩸', '🛡️', '🎯', '💣', '🏹', '🔪', '🗡️', '🏆', '💎', '🌟', '💥', '🌪️', '☠️', '👑', '⚙️', '🔰', '💢', '💫', '🌀', '❤️', '💗', '🤍', '🖤', '👀', '😎', '✅', '😁', '🌙', '☄️', '🌠', '🌌', '💚'],
@@ -94,14 +93,14 @@ module.exports = {
     // ===========================================================
     AUTO_BIO: process.env.AUTO_BIO || 'true',
     BIO_LIST: [
-        "🔐 𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 𝙱𝙾𝚃 - 𝚈𝚘𝚞𝚛 𝚞𝚕𝚝𝚒𝚖𝚊𝚝𝚎 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝",
-        "🚀 𝙿𝚘𝚠𝚎𝚛𝚎𝚍 𝚋𝚢 𝚂𝙸𝙻𝙰 𝚃𝚎𝚌𝚑𝚗𝚘𝚕𝚘𝚐𝚒𝚎𝚜",
-        "💫 𝙰𝚕𝚠𝚊𝚢𝚜 𝚊𝚝 𝚢𝚘𝚞𝚛 𝚜𝚎𝚛𝚟𝚒𝚌𝚎!",
-        "🎯 𝙵𝚊𝚜𝚝, 𝚂𝚎𝚌𝚞𝚛𝚎 & 𝚁𝚎𝚕𝚒𝚊𝚋𝚕𝚎",
-        "🤖 𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 - 𝚈𝚘𝚞𝚛 𝚍𝚒𝚐𝚒𝚝𝚊𝚕 𝚊𝚜𝚜𝚒𝚜𝚝𝚊𝚗𝚝",
-        "⚡ 𝙼𝚞𝚕𝚝𝚒-𝚍𝚎𝚟𝚒𝚌𝚎 𝚋𝚘𝚝 𝚠𝚒𝚝𝚑 𝙼𝚘𝚗𝚐𝚘𝙳𝙱",
-        "🔒 𝚂𝚎𝚌𝚞𝚛𝚎 & 𝙿𝚛𝚒𝚟𝚊𝚝𝚎 𝙱𝚘𝚝",
-        "🌟 𝚅𝚎𝚛𝚜𝚒𝚘𝚗 1.0.0 - 𝙽𝚎𝚠 𝙵𝚎𝚊𝚝𝚞𝚛𝚎𝚜!"
+        "🔐 JAMALI MD BOT - Your ultimate WhatsApp bot",
+        "🚀 Powered by JAMALI TECH TZ",
+        "💫 Always at your service!",
+        "🎯 Fast, Secure & Reliable",
+        "🤖 JAMALI MD - Your digital assistant",
+        "⚡ Multi-device bot with MongoDB",
+        "🔒 Secure & Private Bot",
+        "🌟 Version 1.0.0 - New Features!"
     ],
     
     // ===========================================================
@@ -113,8 +112,8 @@ module.exports = {
     // ===========================================================
     // 12. BUTTON & LIST MESSAGE SETTINGS
     // ===========================================================
-    BUTTON_FOOTER: process.env.BUTTON_FOOTER || '> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡',
-    LIST_TITLE: process.env.LIST_TITLE || 'MOMY-KIDY BOT MENU',
+    BUTTON_FOOTER: process.env.BUTTON_FOOTER || '> © 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐉𝐀𝐌𝐀𝐋𝐈 𝐓𝐄𝐂𝐇 𝐓𝐙',
+    LIST_TITLE: process.env.LIST_TITLE || 'JAMALI MD BOT MENU',
     LIST_BUTTON_TEXT: process.env.LIST_BUTTON_TEXT || 'SELECT OPTION',
     
     // ===========================================================
@@ -122,18 +121,18 @@ module.exports = {
     // ===========================================================
     AUTO_REPLY_ENABLE: process.env.AUTO_REPLY_ENABLE || 'true',
     AUTO_REPLIES: {
-        'hi': '*👋 𝙷𝚎𝚕𝚕𝚘! 𝙷𝚘𝚠 𝚌𝚊𝚗 𝙸 𝚑𝚎𝚕𝚙 𝚢𝚘𝚞 𝚝𝚘𝚍𝚊𝚢?*',
-        'mambo': '*💫 𝙿𝚘𝚊 𝚜𝚊𝚗𝚊! 𝙽𝚒𝚔𝚞𝚜𝚊𝚒𝚍𝚒𝚎 𝙺𝚞𝚑𝚞𝚜𝚞?*',
-        'hey': '*⚡ 𝙷𝚎𝚢 𝚝𝚑𝚎𝚛𝚎! 𝚄𝚜𝚎 .𝚖𝚎𝚗𝚞 𝚏𝚘𝚛 𝚌𝚘𝚖𝚖𝚊𝚗𝚍𝚜*',
-        'vip': '*👑 𝙷𝚎𝚕𝚕𝚘 𝚅𝙸𝙿! 𝙷𝚘𝚠 𝚌𝚊𝚗 𝙸 𝚊𝚜𝚜𝚒𝚜𝚝 𝚢𝚘𝚞?*',
-        'mkuu': '*🔥 𝙷𝚎𝚢 𝚖𝚔𝚞𝚞! 𝙽𝚒𝚔𝚞𝚜𝚊𝚒𝚍𝚒𝚎 𝙺𝚞𝚑𝚞𝚜𝚞?*',
-        'boss': '*🎯 𝚈𝚎𝚜 𝚋𝚘𝚜𝚜! 𝙷𝚘𝚠 𝚌𝚊𝚗 𝙸 𝚑𝚎𝚕𝚙 𝚢𝚘𝚞?*',
-        'habari': '*🌟 𝙽𝚣𝚞𝚛𝚒 𝚜𝚊𝚗𝚊! 𝙷𝚊𝚋𝚊𝚛𝚒 𝚢𝚊𝚔𝚘?*',
-        'hello': '*🤖 𝙷𝚒 𝚝𝚑𝚎𝚛𝚎! 𝚄𝚜𝚎 .𝚖𝚎𝚗𝚞 𝚏𝚘𝚛 𝚌𝚘𝚖𝚖𝚊𝚗𝚍𝚜*',
-        'bot': '*⚙️ 𝚈𝚎𝚜, 𝙸 𝚊𝚖 𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 𝙱𝙾𝚃! 𝙷𝚘𝚠 𝚌𝚊𝚗 𝙸 𝚊𝚜𝚜𝚒𝚜𝚝 𝚢𝚘𝚞?*',
-        'menu': '*📜 𝚃𝚢𝚙𝚎 .𝚖𝚎𝚗𝚞 𝚏𝚘𝚛 𝚊𝚕𝚕 𝚌𝚘𝚖𝚖𝚊𝚗𝚍𝚜!*',
-        'owner': '*👑 𝙲𝚘𝚗𝚝𝚊𝚌𝚝 𝚘𝚠𝚗𝚎𝚛 𝚞𝚜𝚒𝚗𝚐 .𝚘𝚠𝚗𝚎𝚛*',
-        'thanks': '*✨ 𝚈𝚘𝚞\'𝚛𝚎 𝚠𝚎𝚕𝚌𝚘𝚖𝚎!*',
-        'thank you': '*💫 𝙰𝚗𝚢𝚝𝚒𝚖𝚎! 𝙻𝚎𝚝 𝚖𝚎 𝚔𝚗𝚘𝚠 𝚒𝚏 𝚢𝚘𝚞 𝚗𝚎𝚎𝚍 𝚑𝚎𝚕𝚙*'
+        'hi': '*👋 Hello! How can I help you today?*',
+        'mambo': '*💫 Poa sana! Nikusaidie kuhusu?*',
+        'hey': '*⚡ Hey there! Use .menu for commands*',
+        'vip': '*👑 Hello VIP! How can I assist you?*',
+        'mkuu': '*🔥 Hey mkuu! Nikusaidie kuhusu?*',
+        'boss': '*🎯 Yes boss! How can I help you?*',
+        'habari': '*🌟 Nzuri sana! Habari yako?*',
+        'hello': '*🤖 Hi there! Use .menu for commands*',
+        'bot': '*⚙️ Yes, I am JAMALI MD BOT! How can I assist you?*',
+        'menu': '*📜 Type .menu for all commands!*',
+        'owner': '*👑 Contact owner using .owner*',
+        'thanks': '*✨ You\'re welcome!*',
+        'thank you': '*💫 Anytime! Let me know if you need help*'
     }
 };
