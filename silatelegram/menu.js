@@ -1,24 +1,94 @@
 module.exports = {
     command: 'menu',
-    function: async (ctx) => {
+    function: async (ctx) {
         try {
             const { Markup } = require('telegraf');
             
-            const menuMessage = `📜 *𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 𝙱𝙾𝚃 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂 𝙼𝙴𝙽𝚄* 📜\n\n🤖 *𝙱𝙰𝚂𝙸𝙲 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂:*\n• /𝚜𝚝𝚊𝚛𝚝 - 𝚂𝚝𝚊𝚛𝚝 𝚝𝚑𝚎 𝚋𝚘𝚝\n• /𝚙𝚊𝚒𝚛 <𝚗𝚞𝚖𝚋𝚎𝚛> - 𝙿𝚊𝚒𝚛 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝\n• /𝚘𝚠𝚗𝚎𝚛 - 𝙲𝚘𝚗𝚝𝚊𝚌𝚝 𝚘𝚠𝚗𝚎𝚛\n• /𝚖𝚎𝚗𝚞 - 𝚂𝚑𝚘𝚠 𝚝𝚑𝚒𝚜 𝚖𝚎𝚗𝚞\n• /𝚙𝚒𝚗𝚐 - 𝙲𝚑𝚎𝚌𝚔 𝚋𝚘𝚝 𝚜𝚝𝚊𝚝𝚞𝚜\n• /𝚊𝚕𝚒𝚟𝚎 - 𝙲𝚑𝚎𝚌𝚔 𝚒𝚏 𝚋𝚘𝚝 𝚒𝚜 𝚊𝚕𝚒𝚟𝚎\n\n🔧 *𝚆𝙷𝙰𝚃𝚂𝙰𝙿𝙿 𝙱𝙾𝚃 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂:*\n• .𝚖𝚎𝚗𝚞 - 𝚂𝚑𝚘𝚠 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝 𝚖𝚎𝚗𝚞\n• .𝚜𝚝𝚊𝚝𝚞𝚜 - 𝙲𝚑𝚎𝚌𝚔 𝚋𝚘𝚝 𝚜𝚝𝚊𝚝𝚞𝚜\n• .𝚛𝚎𝚜𝚝𝚊𝚛𝚝 - 𝚁𝚎𝚜𝚝𝚊𝚛𝚝 𝚋𝚘𝚝\n• .𝚋𝚛𝚘𝚊𝚍𝚌𝚊𝚜𝚝 - 𝙱𝚛𝚘𝚊𝚍𝚌𝚊𝚜𝚝 𝚖𝚎𝚜𝚜𝚊𝚐𝚎\n\n🛡️ *𝚂𝙴𝙲𝚄𝚁𝙸𝚃𝚈 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂:*\n• .𝚊𝚗𝚝𝚒𝚕𝚒𝚗𝚔 [𝚘𝚗/𝚘𝚏𝚏] - 𝙲𝚘𝚗𝚝𝚛𝚘𝚕 𝚊𝚗𝚝𝚒𝚕𝚒𝚗𝚔\n• .𝚊𝚗𝚝𝚒𝚌𝚊𝚕𝚕 [𝚘𝚗/𝚘𝚏𝚏] - 𝙲𝚘𝚗𝚝𝚛𝚘𝚕 𝚊𝚗𝚝𝚒𝚌𝚊𝚕𝚕\n• .𝚊𝚗𝚝𝚒𝚍𝚎𝚕𝚎𝚝𝚎 - 𝚃𝚘𝚐𝚐𝚕𝚎 𝚊𝚗𝚝𝚒𝚍𝚎𝚕𝚎𝚝𝚎\n\n🎵 *𝙼𝙴𝙳𝙸𝙰 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂:*\n• .𝚙𝚕𝚊𝚢 <𝚜𝚘𝚗𝚐> - 𝙿𝚕𝚊𝚢 𝚖𝚞𝚜𝚒𝚌\n• .𝚢𝚝𝚜 <𝚚𝚞𝚎𝚛𝚢> - 𝚂𝚎𝚊𝚛𝚌𝚑 𝚈𝚘𝚞𝚃𝚞𝚋𝚎\n• .𝚒𝚗𝚜𝚝𝚊 <𝚞𝚛𝚕> - 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍 𝙸𝚗𝚜𝚝𝚊𝚐𝚛𝚊𝚖\n• .𝚏𝚋 <𝚞𝚛𝚕> - 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍 𝙵𝚊𝚌𝚎𝚋𝚘𝚘𝚔\n\n🧠 *𝙰𝙸 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂:*\n• .𝚊𝚒 <𝚚𝚞𝚎𝚜𝚝𝚒𝚘𝚗> - 𝙰𝚜𝚔 𝙰𝙸\n• .𝚐𝚙𝚝 <𝚙𝚛𝚘𝚖𝚙𝚝> - 𝚄𝚜𝚎 𝙶𝙿𝚃\n• .𝚐𝚎𝚖𝚒𝚗𝚒 <𝚚𝚞𝚎𝚛𝚢> - 𝚄𝚜𝚎 𝙶𝚎𝚖𝚒𝚗𝚒 𝙰𝙸\n• .𝚍𝚊𝚕𝚕𝚎 <𝚙𝚛𝚘𝚖𝚙𝚝> - 𝙶𝚎𝚗𝚎𝚛𝚊𝚝𝚎 𝙸𝚖𝚊𝚐𝚎\n\n📊 *𝚂𝚃𝙰𝚃𝚂 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂:*\n• .𝚜𝚝𝚊𝚝𝚜 - 𝚂𝚑𝚘𝚠 𝚋𝚘𝚝 𝚜𝚝𝚊𝚝𝚒𝚜𝚝𝚒𝚌𝚜\n• .𝚙𝚒𝚗𝚐 - 𝙲𝚑𝚎𝚌𝚔 𝚋𝚘𝚝 𝚕𝚊𝚝𝚎𝚗𝚌𝚢\n• .𝚜𝚙𝚎𝚎𝚍 - 𝚃𝚎𝚜𝚝 𝚋𝚘𝚝 𝚜𝚙𝚎𝚎𝚍\n\n🔗 *𝚂𝚄𝙿𝙿𝙾𝚁𝚃 𝙻𝙸𝙽𝙺𝚂:*\n• 𝙶𝚒𝚝𝙷𝚞𝚋: https://github.com/Sila-Md/SILA-MD\n• 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙: https://whatsapp.com/channel/0029VbBG4gfISTkCpKxyMH02\n• 𝚃𝚎𝚕𝚎𝚐𝚛𝚊𝚖: @sila_tech2\n\n> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`;
+            const uptime = process.uptime();
+            const hours = Math.floor(uptime / 3600);
+            const minutes = Math.floor((uptime % 3600) / 60);
+            const uptimeStr = `${hours}h ${minutes}m`;
+            
+            const menuMessage = 
+`⚡ *JAMALI MD - PREMIUM BOT MENU* ⚡
+
+┌───< *BOT STATUS* >───
+│ ✨ *Uptime:* ${uptimeStr}
+│ 🔧 *Version:* 3.0.0
+│ 📊 *Performance:* 99.9%
+│ 👑 *Owner:* JAMALI TECH TZ
+└──────────────────
+
+┌───< *🔰 BASIC COMMANDS* >───
+│ /start - *Start the bot*
+│ /pair <number> - *Pair WhatsApp*
+│ /owner - *Contact owner*
+│ /menu - *Show this menu*
+│ /ping - *Check latency*
+│ /alive - *Bot health*
+│ /status - *System status*
+└──────────────────
+
+┌───< *🎮 WHATSAPP BOT CMDS* >───
+│ .menu - *All bot commands*
+│ .stats - *Bot statistics*
+│ .restart - *Restart bot*
+│ .broadcast - *Broadcast msg*
+│ .join <link> - *Join group*
+│ .leave - *Leave group*
+└──────────────────
+
+┌───< *🛡️ SECURITY* >───
+│ .antilink on/off - *Anti-link*
+│ .anticall on/off - *Reject calls*
+│ .antidelete on/off - *Anti-delete*
+│ .warn @user - *Warn member*
+│ .kick @user - *Kick member*
+└──────────────────
+
+┌───< *🎵 MEDIA TOOLS* >───
+│ .play <song> - *Play music*
+│ .ytmp3 <url> - *Download audio*
+│ .ytmp4 <url> - *Download video*
+│ .instagram <url> - *IG download*
+│ .facebook <url> - *FB download*
+│ .tiktok <url> - *TT download*
+└──────────────────
+
+┌───< *🧠 AI FEATURES* >───
+│ .ai <question> - *ChatGPT*
+│ .gpt <prompt> - *GPT-4*
+│ .gemini <query> - *Gemini AI*
+│ .dalle <prompt> - *Generate image*
+└──────────────────
+
+┌───< *🔗 SUPPORT LINKS* >───
+│ 🐙 GitHub: [JAMALI-MD](${config.URLS?.GITHUB || 'https://github.com/Jamali-md/JAMALI-MD'})
+│ 📱 WhatsApp: [Channel](${config.URLS?.WHATSAPP_CHANNEL || 'https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h'})
+│ 👥 Support: [Group](${config.URLS?.SUPPORT_GROUP || 'https://chat.whatsapp.com/GPdlJ8ip88K39E5Hok7rJh'})
+│ 🤖 Try Bot: [@Jamali_MD_Bot](https://t.me/Jamali_MD_Bot)
+└──────────────────
+
+> 🔥 *Powered by JAMALI TECH TZ* 🔥
+© 2026 JAMALI MD - All rights reserved.`;
             
             const buttons = Markup.inlineKeyboard([
                 [
-                    Markup.button.url('📢 𝙲𝚑𝚊𝚗𝚗𝚎𝚕', 'https://t.me/sila_tech2'),
-                    Markup.button.url('👥 𝙶𝚛𝚘𝚞𝚙', 'https://t.me/sila_md')
+                    Markup.button.url('📢 Channel', 'https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h'),
+                    Markup.button.url('👥 Group', 'https://chat.whatsapp.com/GPdlJ8ip88K39E5Hok7rJh')
                 ],
                 [
-                    Markup.button.url('⭐ 𝙶𝚒𝚝𝙷𝚞𝚋', 'https://github.com/Sila-Md/SILA-MD'),
-                    Markup.button.url('🤖 𝚃𝚛𝚢 𝙱𝚘𝚝', 'https://t.me/momy_kidy_bot')
+                    Markup.button.url('⭐ GitHub', 'https://github.com/Jamali-md/JAMALI-MD'),
+                    Markup.button.url('🤖 Try Bot', 'https://t.me/Jamali_MD_Bot')
+                ],
+                [
+                    Markup.button.callback('🔧 Pair Device', 'pair_menu'),
+                    Markup.button.callback('📊 Bot Status', 'check_status')
                 ]
             ]);
             
             await ctx.replyWithPhoto(
-                { url: 'https://files.catbox.moe/natk49.jpg' },
+                { url: 'https://files.catbox.moe/0e3rok.jpg' },
                 {
                     caption: menuMessage,
                     parse_mode: 'Markdown',
@@ -26,7 +96,18 @@ module.exports = {
                 }
             );
         } catch (error) {
-            await ctx.reply(`📜 *𝙼𝙾𝙼𝚈-𝙺𝙸𝙳𝚈 𝙱𝙾𝚃 𝙼𝙴𝙽𝚄* 📜\n\n🤖 *𝙱𝙰𝚂𝙸𝙲 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂:*\n• /𝚜𝚝𝚊𝚛𝚝\n• /𝚙𝚊𝚒𝚛 <𝚗𝚞𝚖𝚋𝚎𝚛>\n• /𝚘𝚠𝚗𝚎𝚛\n• /𝚖𝚎𝚗𝚞\n• /𝚙𝚒𝚗𝚐\n• /𝚊𝚕𝚒𝚟𝚎\n\n> © 𝐏𝐨𝐰𝐞𝐫𝐝 𝐁𝐲 𝐒𝐢𝐥𝐚 𝐓𝐞𝐜𝐡`, { parse_mode: 'Markdown' });
+            // Fallback message if photo fails
+            await ctx.reply(
+                `⚡ *JAMALI MD - PREMIUM BOT* ⚡\n\n` +
+                `*/start* - Start bot\n` +
+                `*/pair <number>* - Pair WhatsApp\n` +
+                `*/owner* - Contact owner\n` +
+                `*/menu* - Show menu\n` +
+                `*/ping* - Check latency\n` +
+                `*/alive* - Bot health\n\n` +
+                `> 🔥 Powered by *JAMALI TECH TZ*`,
+                { parse_mode: 'Markdown' }
+            );
         }
     }
 };
