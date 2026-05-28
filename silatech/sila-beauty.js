@@ -1,7 +1,7 @@
 const { cmd, commands } = require('../momy');
 const axios = require('axios');
 
-// Define combined fakevCard 
+// Define combined fakevCard (JAMALI MD)
 const fakevCard = {
   key: {
     fromMe: false,
@@ -10,8 +10,8 @@ const fakevCard = {
   },
   message: {
     contactMessage: {
-      displayName: "© 𝐒𝐈𝐋𝐀-𝐌𝐃",
-      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:𝐒𝐈𝐋𝐀 𝐌𝐃 𝐁𝐎𝐓\nORG:𝐒𝐈𝐋𝐀-𝐌𝐃;\nTEL;type=CELL;type=VOICE;waid=255789661031:+255789661031\nEND:VCARD`
+      displayName: "© JAMALI MD",
+      vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:JAMALI MD BOT\nORG:JAMALI TECH TZ;\nTEL;type=CELL;type=VOICE;waid=255784062158:+255784062158\nEND:VCARD`
     }
   }
 };
@@ -22,8 +22,8 @@ const getContextInfo = (m) => {
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363402325089913@newsletter',
-            newsletterName: '© 𝐒𝐈𝐋𝐀 𝐌𝐃',
+            newsletterJid: '120363425061263455@newsletter',
+            newsletterName: 'JAMALI MD',
             serverMessageId: 143,
         },
     };
@@ -71,7 +71,7 @@ try{
     const validCountries = ['china', 'indonesia', 'japan', 'korea', 'thailand'];
     if (!validCountries.includes(country)) {
         return await conn.sendMessage(from, {
-            text: `❌ 𝙸𝚗𝚟𝚊𝚕𝚒𝚍 𝚌𝚘𝚞𝚗𝚝𝚛𝚢\n\n𝙰𝚟𝚊𝚒𝚕𝚊𝚋𝚕𝚎 𝚌𝚘𝚞𝚗𝚝𝚛𝚒𝚎𝚜:\n${validCountries.join(', ')}\n\n𝙴𝚡𝚊𝚖𝚙𝚕𝚎: .𝚋𝚎𝚊𝚞𝚝𝚢 𝚔𝚘𝚛𝚎𝚊`,
+            text: `❌ Invalid country\n\nAvailable countries: ${validCountries.join(', ')}\n\nExample: .beauty korea`,
             contextInfo: getContextInfo({ sender: sender })
         }, { quoted: fakevCard });
     }
@@ -96,21 +96,21 @@ try{
     // Send image
     await conn.sendMessage(from, {
         image: Buffer.from(response.data),
-        caption: `😍 𝑹𝒂𝒏𝒅𝒐𝒎 ${countryCapitalized} 𝑩𝒆𝒂𝒖𝒕𝒚 ${flags[country]}\n\n© Powered by Sila Tech`,
+        caption: `😍 Random ${countryCapitalized} Beauty ${flags[country]}\n\n> 🔥 Powered by JAMALI TECH TZ`,
         contextInfo: getContextInfo({ sender: sender })
     }, { quoted: fakevCard });
 
 } catch (e) {
     await conn.sendPresenceUpdate('paused', from);
     
-    let errorMsg = '❌ 𝙰𝚗 𝚎𝚛𝚛𝚘𝚛 𝚘𝚌𝚌𝚞𝚛𝚛𝚎𝚍';
+    let errorMsg = '❌ An error occurred';
     
     if (e.response?.status === 429) {
-        errorMsg = '❌ 𝚁𝚊𝚝𝚎 𝚕𝚒𝚖𝚒𝚝𝚎𝚍 𝚝𝚛𝚢 𝚊𝚐𝚊𝚒𝚗 𝚕𝚊𝚝𝚎𝚛';
+        errorMsg = '❌ Rate limited try again later';
     } else if (e.response?.status === 500) {
-        errorMsg = '❌ 𝙰𝙿𝙸 𝚜𝚎𝚛𝚟𝚎𝚛 𝚎𝚛𝚛𝚘𝚛';
+        errorMsg = '❌ API server error';
     } else if (e.code === 'ECONNABORTED') {
-        errorMsg = '❌ 𝚁𝚎𝚚𝚞𝚎𝚜𝚝 𝚝𝚒𝚖𝚎𝚘𝚞𝚝';
+        errorMsg = '❌ Request timeout';
     }
 
     await conn.sendMessage(from, {
