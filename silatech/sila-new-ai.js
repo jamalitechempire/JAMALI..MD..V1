@@ -1,3 +1,5 @@
+// JAMALI MD - AI Commands (GPT-5, GPT-OSS, Phi-2, DeepSeek, DuckAI, Gemini, Gita, BibleAI)
+
 const { cmd } = require('../momy');
 const config = require('../config');
 const axios = require('axios');
@@ -5,7 +7,7 @@ const axios = require('axios');
 // ===================== MAIN AI COMMAND (GPT-5) =====================
 cmd({
     pattern: "ai",
-    alias: ["gpt", "ask", "think2", "silai", "brainy", "chat"],
+    alias: ["gpt", "ask", "think2", "jamalai", "brainy", "chat"],
     react: "🤖",
     desc: "Ask AI anything (GPT-5)",
     category: "ai",
@@ -28,7 +30,7 @@ try{
 
     await conn.sendPresenceUpdate('paused', from);
 
-    await reply(aiResponse);
+    await reply(aiResponse + '\n\n> 🔥 Powered by JAMALI TECH TZ');
 
 } catch (e) {
     await conn.sendPresenceUpdate('paused', from);
@@ -62,7 +64,7 @@ try{
     if (answer.length > 4096) answer = answer.substring(0, 4090) + '...';
 
     await conn.sendPresenceUpdate('paused', from);
-    reply(answer);
+    reply(answer + '\n\n> 🔥 Powered by JAMALI TECH TZ');
 
 } catch (e) {
     reply(`❌ Error: ${e.message}`);
@@ -89,7 +91,7 @@ try{
     if (answer.length > 4096) answer = answer.substring(0, 4090) + '...';
 
     await conn.sendPresenceUpdate('paused', from);
-    reply(answer);
+    reply(answer + '\n\n> 🔥 Powered by JAMALI TECH TZ');
 
 } catch (e) {
     reply(`❌ Error: ${e.message}`);
@@ -116,7 +118,7 @@ try{
     if (answer.length > 4096) answer = answer.substring(0, 4090) + '...';
 
     await conn.sendPresenceUpdate('paused', from);
-    reply(answer);
+    reply(answer + '\n\n> 🔥 Powered by JAMALI TECH TZ');
 
 } catch (e) {
     reply(`❌ Error: ${e.message}`);
@@ -147,7 +149,7 @@ try{
     
     await conn.sendMessage(from, {
         image: Buffer.from(response.data),
-        caption: `🦆 *Duck AI Generated Image*\n\nPrompt: ${q}`
+        caption: `🦆 *JAMALI MD - Duck AI Generated Image*\n\nPrompt: ${q}\n\n> 🔥 Powered by JAMALI TECH TZ`
     });
 
 } catch (e) {
@@ -175,7 +177,7 @@ try{
     if (answer.length > 4096) answer = answer.substring(0, 4090) + '...';
 
     await conn.sendPresenceUpdate('paused', from);
-    reply(answer);
+    reply(answer + '\n\n> 🔥 Powered by JAMALI TECH TZ');
 
 } catch (e) {
     reply(`❌ Error: ${e.message}`);
@@ -202,7 +204,7 @@ try{
     if (answer.length > 4096) answer = answer.substring(0, 4090) + '...';
 
     await conn.sendPresenceUpdate('paused', from);
-    reply(answer);
+    reply(answer + '\n\n> 🔥 Powered by JAMALI TECH TZ');
 
 } catch (e) {
     reply(`❌ Error: ${e.message}`);
@@ -243,7 +245,7 @@ try{
     if (answer.length > 4096) answer = answer.substring(0, 4090) + '...';
 
     await conn.sendPresenceUpdate('paused', from);
-    reply(answer);
+    reply(answer + '\n\n> 🔥 Powered by JAMALI TECH TZ');
 
 } catch (e) {
     reply(`❌ Error: ${e.message}`);
